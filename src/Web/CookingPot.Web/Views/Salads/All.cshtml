@@ -1,0 +1,13 @@
+﻿@model CookingPot.Web.ViewModels.Salads.SaladsSubcategoryViewModel
+
+@foreach (var displayModel in Model.Subcategories)
+{
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="@displayModel.ImageUrl" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@displayModel.Name</h5>
+            <p class="card-text">@displayModel.Description</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+}
