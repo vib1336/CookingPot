@@ -2,10 +2,12 @@
 {
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Salads;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using System.Collections.Generic;
 
+    [Authorize]
     public class SaladsController : Controller
     {
         private readonly ISubcategoriesService subcategoriesService;

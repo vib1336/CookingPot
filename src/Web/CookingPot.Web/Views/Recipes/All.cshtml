@@ -1,0 +1,13 @@
+﻿@model CookingPot.Web.ViewModels.Recipes.AllRecipesViewModel
+
+@foreach (var recipe in Model.AllRecipes)
+{
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="@recipe.ImageUrl" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@recipe.Name</h5>
+            <p class="card-text">@recipe.ShortDescription</p>
+            <a href="#" class="btn btn-success">View recipe</a>
+        </div>
+    </div>
+}
