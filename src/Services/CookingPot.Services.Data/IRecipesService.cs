@@ -4,6 +4,8 @@
 
     public interface IRecipesService
     {
-        IEnumerable<T> GetAll<T>();
+        IEnumerable<T> GetRecipes<T>(int subcategoryId);
+
+        T GetRecipe<T>(int id);
     }
 }

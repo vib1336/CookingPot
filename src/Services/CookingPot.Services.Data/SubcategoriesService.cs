@@ -17,10 +17,8 @@
             this.subcategoriesRepository = subcategoriesRepository;
         }
 
-        public IEnumerable<T> GetAll<T>()
-        {
-            IQueryable<Subcategory> subcategories = this.subcategoriesRepository.All();
-            return subcategories.To<T>().ToList();
-        }
+        public T GetSubcategory<T>(string subcategory = null)
+            => this.subcategoriesRepository.All()
+            .Where(s => s.Name == subcategory).To<T>().FirstOrDefault();
     }
 }

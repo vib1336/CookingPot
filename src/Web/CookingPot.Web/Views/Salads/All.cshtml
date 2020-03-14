@@ -1,13 +1,15 @@
-﻿@model CookingPot.Web.ViewModels.Salads.SaladsSubcategoryViewModel
+﻿@model IEnumerable<CookingPot.Web.ViewModels.Salads.DisplaySaladSubcategoryViewModel>
 
-@foreach (var displayModel in Model.Subcategories)
-{
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="@displayModel.ImageUrl" alt="Card image cap">
+<div class="row">
+    @foreach (var recipe in Model)
+    {
+    <div class="card" style="width: 18rem;margin: 10px">
+        <img class="card-img-top" height="200" width="100" src="@recipe.ImageUrl" alt="@recipe.Name">
         <div class="card-body">
-            <h5 class="card-title">@displayModel.Name</h5>
-            <p class="card-text">@displayModel.Description</p>
-            <a href="/Recipes/All" class="btn btn-primary">Show all salads</a>
+            <h5 class="card-title">@recipe.Name</h5>
+            <p class="card-text">@recipe.ShortDescription</p>
+            <a href="/Recipes/Details?id=@recipe.Id" class="btn btn-success">View recipe</a>
         </div>
     </div>
-}
+    }
+</div>

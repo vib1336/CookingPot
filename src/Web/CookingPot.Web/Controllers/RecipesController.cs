@@ -2,6 +2,7 @@
 {
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Recipes;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class RecipesController : Controller
@@ -13,13 +14,12 @@
             this.recipesService = recipesService;
         }
 
-        public IActionResult All()
+        [Authorize]
+        public IActionResult Details(int id)
         {
-            var recipeViewModel = new AllRecipesViewModel();
-            var recipes = this.recipesService.GetAll<DisplayRecipeViewModel>();
-            recipeViewModel.AllRecipes = recipes;
+            var detailsRecipeViewModel = this.recipesService.GetRecipe<DetailsRecipeViewModel>(id);
 
-            return this.View(recipeViewModel);
+            return this.View(detailsRecipeViewModel);
         }
     }
 }

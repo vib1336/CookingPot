@@ -21,6 +21,10 @@
 
         public virtual ApplicationUser User { get; set; }
 
+        public int SubcategoryId { get; set; }
+
+        public virtual Subcategory Subcategory { get; set; }
+
         public virtual ICollection<ProductRecipe> RecipeProducts { get; set; }
     }
 }

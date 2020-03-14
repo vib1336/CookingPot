@@ -1,0 +1,11 @@
+﻿@model CookingPot.Web.ViewModels.Recipes.DetailsRecipeViewModel
+
+<div class="jumbotron">
+    <span>Created on: @Model.CreatedOn.Day/@Model.CreatedOn.Month/@Model.CreatedOn.Year by @Model.UserUserName</span>
+    <h1 class="display-4">@Model.Name</h1>
+    <img src="@Model.ImageUrl" alt="@Model.Name" width="500"/>
+    <p class="lead">@Model.Description</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg" href="/Salads/All" role="button">Back</a>
+</div>

@@ -6,6 +6,6 @@
 
     public interface ISubcategoriesService
     {
-        IEnumerable<T> GetAll<T>();
+        T GetSubcategory<T>(string subcategory = null);
     }
 }
