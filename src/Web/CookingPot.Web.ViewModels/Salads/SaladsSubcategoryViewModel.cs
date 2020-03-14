@@ -2,7 +2,6 @@
 {
     using CookingPot.Data.Models;
     using CookingPot.Services.Mapping;
-    using System.Collections.Generic;
 
     public class SaladsSubcategoryViewModel : IMapFrom<Subcategory>
     {
