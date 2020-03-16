@@ -17,5 +17,8 @@
 
         public string UserUserName { get; set; }
 
+        public int SubcategoryId { get; set; }
+
+        public string ControllerName { get; set; }
     }
 }

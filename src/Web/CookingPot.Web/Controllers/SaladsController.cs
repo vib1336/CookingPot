@@ -1,11 +1,12 @@
 ﻿namespace CookingPot.Web.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System;
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Salads;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
-    using System.Collections.Generic;
 
     public class SaladsController : Controller
     {
@@ -27,11 +28,15 @@
         }
 
         [Authorize]
-        public IActionResult All()
+        public IActionResult All(int page = 1)
         {
-            var saladsSubcategoryViewModel = this.recipesService.GetRecipes<DisplaySaladSubcategoryViewModel>(1);
-
-            return this.View(saladsSubcategoryViewModel);
+            var allSaladsViewModel = new AllSaladsViewModel
+            {
+                AllSalads = this.recipesService.GetRecipes<DisplaySaladSubcategoryViewModel>(1, page),
+                Total = this.recipesService.GetTotalRecipesFromSubcategory(1),
+                CurrentPage = page,
+            };
+            return this.View(allSaladsViewModel);
         }
     }
 }

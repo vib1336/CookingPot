@@ -19,6 +19,12 @@
         {
             var detailsRecipeViewModel = this.recipesService.GetRecipe<DetailsRecipeViewModel>(id);
 
+            detailsRecipeViewModel.ControllerName = detailsRecipeViewModel.SubcategoryId switch
+            {
+                1 => "Salads",
+                _ => string.Empty,
+            };
+
             return this.View(detailsRecipeViewModel);
         }
     }

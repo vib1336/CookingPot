@@ -16,9 +16,13 @@
             this.recipesRepository = recipesRepository;
         }
 
-        public IEnumerable<T> GetRecipes<T>(int subcategoryId)
+        public IEnumerable<T> GetRecipes<T>(int subcategoryId, int page)
         {
-            IQueryable<Recipe> recipes = this.recipesRepository.All().Where(r => r.SubcategoryId == subcategoryId);
+            IQueryable<Recipe> recipes = this.recipesRepository.All()
+                .Where(r => r.SubcategoryId == subcategoryId)
+                .Skip((page - 1) * 9)
+                .Take(9);
+
             return recipes.To<T>().ToList();
         }
 
@@ -27,5 +31,10 @@
             T recipe = this.recipesRepository.All().Where(r => r.Id == id).To<T>().FirstOrDefault();
             return recipe;
         }
+
+        public int GetTotalRecipesFromSubcategory(int subcategoryId)
+            => this.recipesRepository.All()
+            .Where(r => r.SubcategoryId == subcategoryId)
+            .Count();
     }
 }

@@ -14,6 +14,26 @@
         public string ImageUrl { get; set; }
 
         public string ShortDescription
-            => this.Description.Length > 20 ? this.Description.Substring(0, 20) + "..." : this.Description;
+        {
+            get
+            {
+                string defaultDescription = string.Empty;
+
+                if (this.Description?.Length > 20)
+                {
+                    defaultDescription = this.Description.Substring(0, 20) + "...";
+                }
+                else if (this.Description?.Length < 20)
+                {
+                    defaultDescription = this.Description;
+                }
+                else
+                {
+                    defaultDescription = "(No description avalaible)";
+                }
+
+                return defaultDescription;
+            }
+        }
     }
 }
