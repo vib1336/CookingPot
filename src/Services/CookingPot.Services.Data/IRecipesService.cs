@@ -9,5 +9,6 @@
         T GetRecipe<T>(int id);
 
         int GetTotalRecipesFromSubcategory(int subcategoryId);
+
     }
 }

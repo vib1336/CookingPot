@@ -1,7 +1,7 @@
 ﻿namespace CookingPot.Web.ViewModels.Salads
 {
-    using System.Collections.Generic;
     using System;
+    using System.Collections.Generic;
 
     public class AllSaladsViewModel
     {
