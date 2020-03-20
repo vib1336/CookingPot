@@ -2,17 +2,36 @@
 {
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Recipes;
+    using CookingPot.Web.ViewModels.Categories;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class RecipesController : Controller
     {
         private readonly IRecipesService recipesService;
+        private readonly ICategoryService categoryService;
 
-        public RecipesController(IRecipesService recipesService)
+        public RecipesController(IRecipesService recipesService, ICategoryService categoryService)
         {
             this.recipesService = recipesService;
+            this.categoryService = categoryService;
         }
+
+        [Authorize] // ?
+        public IActionResult AddRecipe()
+        {
+            var categories = this.categoryService.GetCategories<CategoryDisplayModel>();
+            var recipeInputModel = new RecipeInputModel();
+            recipeInputModel.Categories = categories;
+            return this.View(recipeInputModel);
+        }
+
+        [HttpPost] // ?
+        public IActionResult AddRecipe(RecipeInputModel inputModel)
+        {
+            return this.View();
+        }
+
 
         [Authorize]
         public IActionResult Details(int id)

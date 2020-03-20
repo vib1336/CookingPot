@@ -8,7 +8,7 @@
     using CookingPot.Data.Models;
     using CookingPot.Services.Mapping;
 
-    public class DetailsRecipeViewModel : IMapFrom<Recipe>//, IHaveCustomMappings
+    public class DetailsRecipeViewModel : IMapFrom<Recipe>
     {
         public DateTime CreatedOn { get; set; }
 
@@ -25,18 +25,5 @@
         public string ControllerName { get; set; }
 
         public IEnumerable<ProductViewModel> RecipeProducts { get; set; }
-
-        //public void CreateMappings(IProfileExpression configuration)
-        //{
-        //    configuration.CreateMap<Recipe, ProductViewModel>()
-        //        .ForMember(
-        //            dest => dest.Name,
-        //            opt => opt.MapFrom(src => src.RecipeProducts.Select(rp => rp.Product.Name)));
-
-        //    configuration.CreateMap<Recipe, ProductViewModel>()
-        //        .ForMember(
-        //            dest => dest.Quantity,
-        //            opt => opt.MapFrom(src => src.RecipeProducts.Select(rp => rp.Product.Quantity)));
-        //}
     }
 }

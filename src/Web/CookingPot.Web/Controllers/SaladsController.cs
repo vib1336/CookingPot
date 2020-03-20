@@ -23,7 +23,7 @@
         public IActionResult Subcategories()
         {
             var saladsSubcategoryViewModel = this.subcategoriesService
-                .GetSubcategory<SaladsSubcategoryViewModel>("Salads");
+                .GetSubcategory<SaladsSubcategoryViewModel>("All Salads");
 
             return this.View(saladsSubcategoryViewModel);
         }

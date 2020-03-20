@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using CookingPot.Data.Models;
-using CookingPot.Services.Mapping;
-
-namespace CookingPot.Web.ViewModels.Recipes
+﻿namespace CookingPot.Web.ViewModels.Recipes
 {
+    using AutoMapper;
+    using CookingPot.Data.Models;
+    using CookingPot.Services.Mapping;
+
     public class ProductViewModel : IHaveCustomMappings
     {
         public string Name { get; set; }
