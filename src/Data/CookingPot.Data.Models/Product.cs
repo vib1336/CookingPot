@@ -15,8 +15,6 @@
         [Required]
         public string Name { get; set; }
 
-        public double Quantity { get; set; }
-
         public virtual ICollection<ProductRecipe> ProductRecipes { get; set; }
     }
 }

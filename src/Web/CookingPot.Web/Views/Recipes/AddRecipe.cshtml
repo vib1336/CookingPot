@@ -14,7 +14,7 @@
 
     <div class="form-group">
         <label>Choose a category/subcategory</label>
-        <select class="form-control">
+        <select class="form-control" name="SubcategoryId">
             @foreach (var category in Model.Categories)
             {
                 <optgroup label="@category.Name">
@@ -43,7 +43,7 @@
         <input asp-for="ImageUrl" class="form-control" />
     </div>
 
-    <input type="submit" class="btn btn-primary" />
+    <input type="submit" value="Post recipe" class="btn btn-primary" />
 
 </form>
 

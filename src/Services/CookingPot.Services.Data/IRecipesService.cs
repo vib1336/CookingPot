@@ -1,6 +1,7 @@
 ﻿namespace CookingPot.Services.Data
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IRecipesService
     {
@@ -10,5 +11,6 @@
 
         int GetTotalRecipesFromSubcategory(int subcategoryId);
 
+        Task<int> AddRecipeAsync(string name, string description, string neededProducts, string imageUrl, int subcategoryId, string userId);
     }
 }

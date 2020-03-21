@@ -15,10 +15,7 @@
             configuration.CreateMap<ProductRecipe, ProductViewModel>()
                 .ForMember(
                 dest => dest.Name,
-                opt => opt.MapFrom(src => src.Product.Name))
-                .ForMember(
-                dest => dest.Quantity,
-                opt => opt.MapFrom(src => src.Product.Quantity));
+                opt => opt.MapFrom(src => src.Product.Name));
         }
     }
 }

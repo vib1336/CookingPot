@@ -1,8 +1,9 @@
 ﻿namespace CookingPot.Web.ViewModels.Categories
 {
+    using System.Collections.Generic;
+
     using CookingPot.Data.Models;
     using CookingPot.Services.Mapping;
-    using System.Collections.Generic;
 
     public class CategoryDisplayModel : IMapFrom<Category>
     {
