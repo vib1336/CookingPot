@@ -14,6 +14,8 @@
 
         public int SubcategoryId { get; set; }
 
+        [Required]
+        [StringLength(400, MinimumLength = 10)]
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
