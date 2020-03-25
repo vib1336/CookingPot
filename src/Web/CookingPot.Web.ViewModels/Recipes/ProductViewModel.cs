@@ -8,8 +8,6 @@
     {
         public string Name { get; set; }
 
-        public double Quantity { get; set; }
-
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ProductRecipe, ProductViewModel>()

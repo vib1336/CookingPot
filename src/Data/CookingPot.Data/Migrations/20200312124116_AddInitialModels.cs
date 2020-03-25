@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CookingPot.Data.Migrations
+﻿namespace CookingPot.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddInitialModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

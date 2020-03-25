@@ -97,5 +97,16 @@
 
             return recipe.Id;
         }
+
+        public async Task UpdateRecipeAsync(int id, string name, string description, string products)
+        {
+            var recipeToEdit = this.recipesRepository.All().Where(r => r.Id == id).FirstOrDefault();
+
+            recipeToEdit.Name = name;
+            recipeToEdit.Description = description;
+            recipeToEdit.ModifiedOn = DateTime.UtcNow;
+
+            await this.recipesRepository.SaveChangesAsync();
+        }
     }
 }

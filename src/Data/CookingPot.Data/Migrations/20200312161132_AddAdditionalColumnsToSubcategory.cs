@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CookingPot.Data.Migrations
+﻿namespace CookingPot.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddAdditionalColumnsToSubcategory : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

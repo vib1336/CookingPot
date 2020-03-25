@@ -1,11 +1,16 @@
 ﻿@model CookingPot.Web.ViewModels.Recipes.DetailsRecipeViewModel
 
-@{ 
+@{
     this.ViewData["Title"] = Model.Name;
 }
 
 <div class="jumbotron">
-    <span>Created on: @Model.CreatedOn.Day/@Model.CreatedOn.Month/@Model.CreatedOn.Year by @Model.UserUserName</span>
+    <span>Created on: @Model.CreatedOn.Day/@Model.CreatedOn.Month/@Model.CreatedOn.Year by @Model.UserUserName | Edited on:
+    @if (Model.ModifiedOn.HasValue)
+    {
+        @Model.ModifiedOn.Value;
+    }
+    </span>
     <h1 class="display-4">@Model.Name</h1>
     <img src="@Model.ImageUrl" alt="@Model.Name" width="500" />
     <p class="lead">@Model.Description</p>
@@ -19,5 +24,12 @@
             }
         </ul>
     </p>
-    <a class="btn btn-primary btn-lg" href="/@Model.ControllerName/All" role="button">Back</a>
+    <div>
+        <a class="btn btn-primary btn-lg float-left" href="/@Model.ControllerName/All" role="button">Back</a>
+        @if (Model.CurrentUserId == Model.UserId)
+        {
+            <a class="btn btn-primary btn-lg float-right" href="/Recipes/EditRecipe?id=@Model.Id" role="button">Edit</a>
+        }
+
+    </div>
 </div>

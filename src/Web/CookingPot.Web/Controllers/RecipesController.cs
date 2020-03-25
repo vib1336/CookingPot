@@ -1,5 +1,9 @@
 ﻿namespace CookingPot.Web.Controllers
 {
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     using CookingPot.Data.Models;
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Categories;
@@ -7,8 +11,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
+    [Authorize]
     public class RecipesController : Controller
     {
         private readonly IRecipesService recipesService;
@@ -25,7 +29,6 @@
             this.userManager = userManager;
         }
 
-        [Authorize] // ?
         public IActionResult AddRecipe()
         {
             var categories = this.categoryService.GetCategories<CategoryDisplayModel>();
@@ -35,7 +38,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddRecipe(RecipeInputModel inputModel)
         {
             if (!this.ModelState.IsValid)
@@ -49,18 +51,18 @@
             return this.RedirectToAction(nameof(this.Details), new { id = recipeId });
         }
 
-        [Authorize]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
+
             var detailsRecipeViewModel = this.recipesService.GetRecipe<DetailsRecipeViewModel>(id);
 
             if (detailsRecipeViewModel == null)
             {
-                return this.RedirectToAction("Error", "Home");
-
-                // make error view 404
+                return this.RedirectToAction("Error", "Home"); // make error view
             }
 
+            detailsRecipeViewModel.CurrentUserId = user.Id;
             detailsRecipeViewModel.ControllerName = detailsRecipeViewModel.SubcategoryId switch
             {
                 1 => "Salads",
@@ -68,6 +70,34 @@
             };
 
             return this.View(detailsRecipeViewModel);
+        }
+
+        public IActionResult EditRecipe(int id)
+        {
+            var editRecipeViewModel = this.recipesService.GetRecipe<EditRecipeViewModel>(id);
+
+            if (editRecipeViewModel == null)
+            {
+                return this.RedirectToAction("Error", "Home"); // make error view
+            }
+
+            var products = new StringBuilder();
+
+            foreach (var product in editRecipeViewModel.RecipeProducts)
+            {
+                products.AppendLine(product.Name);
+            }
+
+            editRecipeViewModel.ProductsForViewModel = products.ToString();
+
+            return this.View(editRecipeViewModel);
+        }
+
+        public async Task<IActionResult> UpdateRecipe(EditRecipeViewModel editModel)
+        {
+            await this.recipesService.UpdateRecipeAsync(editModel.Id, editModel.Name, editModel.Description, editModel.ProductsForViewModel);
+
+            return this.RedirectToAction(nameof(this.Details), new { id = editModel.Id });
         }
     }
 }

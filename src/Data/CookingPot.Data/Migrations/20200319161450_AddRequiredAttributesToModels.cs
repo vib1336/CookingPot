@@ -1,17 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CookingPot.Data.Migrations
+﻿namespace CookingPot.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddRequiredAttributesToModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
         }
     }
 }

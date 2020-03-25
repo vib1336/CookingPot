@@ -10,6 +10,10 @@
 
     public class DetailsRecipeViewModel : IMapFrom<Recipe>
     {
+        public int Id { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public string Name { get; set; }
@@ -19,6 +23,10 @@
         public string ImageUrl { get; set; }
 
         public string UserUserName { get; set; }
+
+        public string UserId { get; set; } // not sure?
+
+        public string CurrentUserId { get; set; } // not sure?
 
         public int SubcategoryId { get; set; }
 

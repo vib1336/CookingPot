@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
     using CookingPot.Data;
     using CookingPot.Data.Common;
     using CookingPot.Data.Common.Repositories;
@@ -13,9 +14,6 @@
     using CookingPot.Data.Seeding;
     using CookingPot.Services.Data;
     using CookingPot.Services.Messaging;
-
-    using CommandLine;
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
