@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CookingPot.Common\CookingPot.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookingPot.Data.Common\CookingPot.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookingPot.Data.Models\CookingPot.Data.Models.csproj" />
     <ProjectReference Include="..\CookingPot.Services.Mapping\CookingPot.Services.Mapping.csproj" />

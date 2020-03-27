@@ -5,12 +5,12 @@
 }
 
 <div class="jumbotron">
-    <span>Created on: @Model.CreatedOn.Day/@Model.CreatedOn.Month/@Model.CreatedOn.Year by @Model.UserUserName | Edited on:
+    <span><i class="fas fa-calendar"></i> @Model.CreatedOn.Day/@Model.CreatedOn.Month/@Model.CreatedOn.Year | <i class="fas fa-user"></i> @Model.UserUserName</span>
     @if (Model.ModifiedOn.HasValue)
     {
-        @Model.ModifiedOn.Value;
+        <span>| <i class="fas fa-edit"></i>@Model.ModifiedOn.Value;</span>
     }
-    </span>
+    
     <h1 class="display-4">@Model.Name</h1>
     <img src="@Model.ImageUrl" alt="@Model.Name" width="500" />
     <p class="lead">@Model.Description</p>

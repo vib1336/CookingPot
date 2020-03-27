@@ -9,6 +9,8 @@
     using CookingPot.Data.Models;
     using CookingPot.Services.Mapping;
 
+    using static CookingPot.Common.GlobalConstants;
+
     public class RecipesService : IRecipesService
     {
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
@@ -29,8 +31,8 @@
         {
             IQueryable<Recipe> recipes = this.recipesRepository.All()
                 .Where(r => r.SubcategoryId == subcategoryId)
-                .Skip((page - 1) * 9)
-                .Take(9);
+                .Skip((page - 1) * RecipesPerPage)
+                .Take(RecipesPerPage);
 
             return recipes.To<T>().ToList();
         }
@@ -101,6 +103,26 @@
         public async Task UpdateRecipeAsync(int id, string name, string description, string products)
         {
             var recipeToEdit = this.recipesRepository.All().Where(r => r.Id == id).FirstOrDefault();
+
+            string[] filteredProducts = products
+                .Split(new[] { "\r\n" }, StringSplitOptions.None)
+                .Where(p => p != string.Empty)
+                .ToArray();
+
+            foreach (var pr in filteredProducts)
+            {
+                if (this.productsRepository.All().Any(p => p.Name != pr))
+                {
+                    Product product = new Product { Name = pr };
+                    await this.productsRepository.AddAsync(product);
+                    await this.productsRepository.SaveChangesAsync();
+
+                    ProductRecipe productRecipe = new ProductRecipe { ProductId = product.Id, RecipeId = id };
+                    await this.productRecipeRepository.AddAsync(productRecipe);
+                }
+            }
+
+            await this.productRecipeRepository.SaveChangesAsync();
 
             recipeToEdit.Name = name;
             recipeToEdit.Description = description;

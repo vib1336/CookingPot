@@ -48,6 +48,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
 
             int recipeId = await this.recipesService.AddRecipeAsync(inputModel.Name, inputModel.Description, inputModel.RecipeProducts, inputModel.ImageUrl, inputModel.SubcategoryId, user.Id);
+            this.TempData[""] = "Recipe successfuly posted!"; // TODO
             return this.RedirectToAction(nameof(this.Details), new { id = recipeId });
         }
 
