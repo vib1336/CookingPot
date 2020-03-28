@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     using AutoMapper;
     using CookingPot.Data.Models;
@@ -24,9 +25,18 @@
 
         public string UserUserName { get; set; }
 
-        public string UserId { get; set; } // not sure?
+        public string ShortUsername
+        {
+            get
+            {
+                string hideEmailFromUsername = Regex.Replace(this.UserUserName, @"@[A-Za-z0-9](.)*", string.Empty);
+                return hideEmailFromUsername;
+            }
+        }
 
-        public string CurrentUserId { get; set; } // not sure?
+        public string UserId { get; set; }
+
+        public string CurrentUserId { get; set; }
 
         public int SubcategoryId { get; set; }
 

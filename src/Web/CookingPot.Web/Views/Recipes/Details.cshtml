@@ -4,13 +4,20 @@
     this.ViewData["Title"] = Model.Name;
 }
 
+@if (this.TempData["InfoMessage"] != null)
+{
+    <div id="tempData" class="alert alert-success">
+        @this.TempData["InfoMessage"]
+    </div>
+}
+
 <div class="jumbotron">
-    <span><i class="fas fa-calendar"></i> @Model.CreatedOn.Day/@Model.CreatedOn.Month/@Model.CreatedOn.Year | <i class="fas fa-user"></i> @Model.UserUserName</span>
+    <span><i class="fas fa-calendar"></i> @Model.CreatedOn.Day/@Model.CreatedOn.Month/@Model.CreatedOn.Year | <i class="fas fa-user"></i> @Model.ShortUsername</span>
     @if (Model.ModifiedOn.HasValue)
     {
-        <span>| <i class="fas fa-edit"></i>@Model.ModifiedOn.Value;</span>
+        <span>| <i class="fas fa-edit"></i>@Model.ModifiedOn.Value</span>
     }
-    
+
     <h1 class="display-4">@Model.Name</h1>
     <img src="@Model.ImageUrl" alt="@Model.Name" width="500" />
     <p class="lead">@Model.Description</p>
@@ -33,3 +40,13 @@
 
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+        setTimeout(function () {
+        $('#tempData').hide();
+        }, 3000);
+        });
+    </script>
+}
