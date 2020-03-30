@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using CookingPot.Web.ViewModels.Categories;
+    using Microsoft.AspNetCore.Http;
 
     public class RecipeInputModel
     {
@@ -15,10 +16,10 @@
         public int SubcategoryId { get; set; }
 
         [Required]
-        [StringLength(400, MinimumLength = 10)]
+        [StringLength(1000, MinimumLength = 10)]
         public string Description { get; set; }
 
-        public string ImageUrl { get; set; }
+        public IFormFile Image { get; set; }
 
         [Required]
         [StringLength(400, MinimumLength = 10)]

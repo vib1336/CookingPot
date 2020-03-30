@@ -12,6 +12,8 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    using static CookingPot.Common.GlobalConstants;
+
     [Authorize]
     public class RecipesController : Controller
     {
@@ -47,8 +49,8 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            int recipeId = await this.recipesService.AddRecipeAsync(inputModel.Name, inputModel.Description, inputModel.RecipeProducts, inputModel.ImageUrl, inputModel.SubcategoryId, user.Id);
-            this.TempData["InfoMessage"] = "Recipe successfuly posted!";
+            int recipeId = await this.recipesService.AddRecipeAsync(inputModel.Name, inputModel.Description, inputModel.Image, inputModel.RecipeProducts, inputModel.SubcategoryId, user.Id);
+            this.TempData["InfoMessage"] = RecipePosted;
             return this.RedirectToAction(nameof(this.Details), new { id = recipeId });
         }
 
@@ -97,7 +99,7 @@
         public async Task<IActionResult> UpdateRecipe(EditRecipeViewModel editModel)
         {
             await this.recipesService.UpdateRecipeAsync(editModel.Id, editModel.Name, editModel.Description, editModel.ProductsForViewModel);
-
+            this.TempData["InfoMessage"] = RecipeEdited;
             return this.RedirectToAction(nameof(this.Details), new { id = editModel.Id });
         }
     }

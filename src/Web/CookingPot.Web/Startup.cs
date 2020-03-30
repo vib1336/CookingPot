@@ -1,7 +1,7 @@
 ﻿namespace CookingPot.Web
 {
     using System.Reflection;
-
+    using CloudinaryDotNet;
     using CookingPot.Data;
     using CookingPot.Data.Common;
     using CookingPot.Data.Common.Repositories;
@@ -53,6 +53,15 @@
             });
             services.AddRazorPages();
 
+            // Cloudinary service
+            Account account = new Account(
+                this.configuration["Cloudinary:AppName"],
+                this.configuration["Cloudinary:AppKey"],
+                this.configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary); // ?
             services.AddSingleton(this.configuration);
 
             // Data repositories
