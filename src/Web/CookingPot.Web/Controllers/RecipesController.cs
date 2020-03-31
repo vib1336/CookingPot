@@ -98,6 +98,12 @@
 
         public async Task<IActionResult> UpdateRecipe(EditRecipeViewModel editModel)
         {
+            var isRecipeExistent = this.recipesService.RecipeExists(editModel.Id);
+            if (!isRecipeExistent)
+            {
+                this.BadRequest(); // ?
+            }
+
             await this.recipesService.UpdateRecipeAsync(editModel.Id, editModel.Name, editModel.Description, editModel.ProductsForViewModel);
             this.TempData["InfoMessage"] = RecipeEdited;
             return this.RedirectToAction(nameof(this.Details), new { id = editModel.Id });

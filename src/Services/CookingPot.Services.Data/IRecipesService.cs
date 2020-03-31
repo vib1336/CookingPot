@@ -16,5 +16,7 @@
         Task<int> AddRecipeAsync(string name, string description, IFormFile image, string neededProducts, int subcategoryId, string userId);
 
         Task UpdateRecipeAsync(int id, string name, string description, string products); // ?
+
+        bool RecipeExists(int id);
     }
 }

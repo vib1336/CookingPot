@@ -171,5 +171,8 @@
 
             await this.recipesRepository.SaveChangesAsync();
         }
+
+        public bool RecipeExists(int id)
+            => this.recipesRepository.All().Any(r => r.Id == id);
     }
 }

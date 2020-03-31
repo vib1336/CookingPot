@@ -6,23 +6,25 @@
     using CookingPot.Web.ViewModels.Categories;
     using Microsoft.AspNetCore.Http;
 
+    using static CookingPot.Common.GlobalConstants;
+
     public class RecipeInputModel
     {
         [Required]
-        [StringLength(100, MinimumLength = 3)]
+        [StringLength(RecipeNameMaxLength, MinimumLength = RecipeNameMinLength)]
         [Display(Name = "Recipe name")]
         public string Name { get; set; }
 
         public int SubcategoryId { get; set; }
 
         [Required]
-        [StringLength(1000, MinimumLength = 10)]
+        [StringLength(RecipeDescriptionMaxLength, MinimumLength = RecipeDescriptionMinLength)]
         public string Description { get; set; }
 
         public IFormFile Image { get; set; }
 
         [Required]
-        [StringLength(400, MinimumLength = 10)]
+        [StringLength(RecipeProductsMaxLength, MinimumLength = RecipeProductsMinLength)]
         [Display(Name = "Products needed")]
         public string RecipeProducts { get; set; }
 

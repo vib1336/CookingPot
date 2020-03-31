@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using static CookingPot.Common.GlobalConstants;
+
     public class AllSaladsViewModel
     {
         public IEnumerable<DisplaySaladSubcategoryViewModel> AllSalads { get; set; }
@@ -21,7 +23,7 @@
         {
             get
             {
-                double maxPage = Math.Ceiling(((double)this.Total) / 9);
+                double maxPage = Math.Ceiling(((double)this.Total) / RecipesPerPage);
 
                 return this.CurrentPage == maxPage;
             }

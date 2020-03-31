@@ -6,21 +6,23 @@
     using CookingPot.Data.Models;
     using CookingPot.Services.Mapping;
 
+    using static CookingPot.Common.GlobalConstants;
+
     public class EditRecipeViewModel : IMapFrom<Recipe>
     {
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100, MinimumLength = 3)]
+        [StringLength(RecipeNameMaxLength, MinimumLength = RecipeNameMinLength)]
         [Display(Name = "Recipe name")]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(400, MinimumLength = 10)]
+        [StringLength(RecipeDescriptionMaxLength, MinimumLength = RecipeDescriptionMinLength)]
         public string Description { get; set; }
 
         [Required]
-        [StringLength(400, MinimumLength = 10)]
+        [StringLength(RecipeProductsMaxLength, MinimumLength = RecipeProductsMinLength)]
         [Display(Name = "Products needed")]
         public string ProductsForViewModel { get; set; }
 
