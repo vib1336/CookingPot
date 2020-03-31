@@ -61,7 +61,7 @@
 
             Cloudinary cloudinary = new Cloudinary(account);
 
-            services.AddSingleton(cloudinary); // ?
+            services.AddSingleton(cloudinary); // register cloudinary service
             services.AddSingleton(this.configuration);
 
             // Data repositories
