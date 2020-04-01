@@ -62,7 +62,8 @@
 
             if (detailsRecipeViewModel == null)
             {
-                return this.RedirectToAction("Error", "Home"); // make error view
+                this.Response.StatusCode = 404;
+                return this.View("RecipeNotFound", id);
             }
 
             detailsRecipeViewModel.CurrentUserId = user.Id;
@@ -81,7 +82,8 @@
 
             if (editRecipeViewModel == null)
             {
-                return this.RedirectToAction("Error", "Home"); // make error view
+                this.Response.StatusCode = 404;
+                return this.View("RecipeNotFound", id);
             }
 
             var products = new StringBuilder();
