@@ -1,0 +1,17 @@
+﻿@{
+    this.ViewData["Title"] = "Not Found";
+}
+
+<div class="alert alert-danger mt-1 mb-1">
+    <h4>404 Not Found Error:</h4>
+    <hr />
+    <h5>@this.ViewBag.ErrorMessage</h5>
+</div>
+<br />
+<h5>You might be interested in one of these links.</h5>
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+    Home
+</a>
+<a asp-controller="Salads" asp-action="All" class="btn btn-primary">
+    Salads
+</a>

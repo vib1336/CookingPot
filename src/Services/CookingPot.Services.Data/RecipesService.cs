@@ -45,10 +45,7 @@
         }
 
         public T GetRecipe<T>(int id)
-        {
-            T recipe = this.recipesRepository.All().Where(r => r.Id == id).To<T>().FirstOrDefault();
-            return recipe;
-        }
+            => this.recipesRepository.All().Where(r => r.Id == id).To<T>().FirstOrDefault();
 
         public int GetTotalRecipesFromSubcategory(int subcategoryId)
             => this.recipesRepository.All()

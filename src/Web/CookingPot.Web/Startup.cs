@@ -102,8 +102,10 @@
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
+
+                // app.UseExceptionHandler("/Home/Error");
+                // app.UseHsts();
             }
 
             app.UseHttpsRedirection();
