@@ -42,6 +42,10 @@
 
         public string ControllerName { get; set; }
 
+        public int PositiveVotes { get; set; }
+
+        public int NegativeVotes { get; set; }
+
         public IEnumerable<ProductViewModel> RecipeProducts { get; set; }
     }
 }

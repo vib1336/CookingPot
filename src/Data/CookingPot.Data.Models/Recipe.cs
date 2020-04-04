@@ -10,6 +10,7 @@
         public Recipe()
         {
             this.RecipeProducts = new HashSet<ProductRecipe>();
+            this.Votes = new HashSet<Vote>();
         }
 
         [Required]
@@ -29,5 +30,7 @@
         public virtual Subcategory Subcategory { get; set; }
 
         public virtual ICollection<ProductRecipe> RecipeProducts { get; set; }
+
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

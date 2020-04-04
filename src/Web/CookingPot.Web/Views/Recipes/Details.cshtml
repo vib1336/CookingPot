@@ -17,7 +17,20 @@
     {
         <span>| <i class="fas fa-edit"></i>@Model.ModifiedOn.Value</span>
     }
-
+    <form id="votesForm" method="post"></form>
+    <div class="float-right">
+        <a href="#" onclick="sendVote(@Model.Id, true)">
+            <i class="fa fa-thumbs-up"></i>
+        </a>
+        <span id="positiveVotes">@Model.PositiveVotes</span>
+    </div>
+    <br/>
+    <div class="float-right">
+        <a href="#" onclick="sendVote(@Model.Id, false)">
+            <i class="fa fa-thumbs-down"></i>
+        </a>
+        <span id="negativeVotes">@Model.NegativeVotes</span>
+    </div>
     <h1 class="display-4">@Model.Name</h1>
     <img src="@Model.ImageUrl" alt="@Model.Name" width="500" />
     <p class="lead">@Model.Description</p>
@@ -48,5 +61,23 @@
         $('#tempData').hide();
         }, 3000);
         });
+
+        function sendVote(recipeId, isUpVote) {
+            var token = $("#votesForm input[name=__RequestVerificationToken]").val();
+            var json = { recipeId: recipeId, isUpVote: isUpVote };
+            $.ajax({
+                url: "/api/votes",
+                method: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    document.getElementById('positiveVotes').innerHTML = data.positiveVotes;
+                    document.getElementById('negativeVotes').innerHTML = data.negativeVotes;
+                }
+            });
+        }
+
     </script>
 }

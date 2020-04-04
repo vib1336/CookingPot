@@ -17,6 +17,7 @@ namespace CookingPot.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Recipes = new HashSet<Recipe>();
+            this.Votes = new HashSet<Vote>();
         }
 
         // Audit info
@@ -36,5 +37,7 @@ namespace CookingPot.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<Recipe> Recipes { get; set; }
+
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

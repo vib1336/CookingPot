@@ -20,15 +20,18 @@
         private readonly IRecipesService recipesService;
         private readonly ICategoryService categoryService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IVotesService votesService; // ?
 
         public RecipesController(
             IRecipesService recipesService,
             ICategoryService categoryService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IVotesService votesService)
         {
             this.recipesService = recipesService;
             this.categoryService = categoryService;
             this.userManager = userManager;
+            this.votesService = votesService;
         }
 
         public IActionResult AddRecipe()
@@ -72,7 +75,8 @@
                 1 => "Salads",
                 _ => string.Empty,
             };
-
+            detailsRecipeViewModel.PositiveVotes = this.votesService.CountPositiveVotes(id); // ?
+            detailsRecipeViewModel.NegativeVotes = this.votesService.CountNegativeVotes(id); // ?
             return this.View(detailsRecipeViewModel);
         }
 

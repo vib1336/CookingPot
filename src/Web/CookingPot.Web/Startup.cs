@@ -51,6 +51,11 @@
             {
                 configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
+
             services.AddRazorPages();
 
             // Cloudinary service
@@ -75,6 +80,7 @@
             services.AddTransient<ISubcategoriesService, SubcategoriesService>();
             services.AddTransient<IRecipesService, RecipesService>();
             services.AddTransient<ICategoryService, CategoryService>(); // ?
+            services.AddTransient<IVotesService, VotesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
