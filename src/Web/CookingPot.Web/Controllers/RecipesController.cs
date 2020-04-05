@@ -1,5 +1,6 @@
 ﻿namespace CookingPot.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -11,6 +12,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
 
     using static CookingPot.Common.GlobalConstants;
 
@@ -20,7 +22,7 @@
         private readonly IRecipesService recipesService;
         private readonly ICategoryService categoryService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IVotesService votesService; // ?
+        private readonly IVotesService votesService;
 
         public RecipesController(
             IRecipesService recipesService,
@@ -75,8 +77,8 @@
                 1 => "Salads",
                 _ => string.Empty,
             };
-            detailsRecipeViewModel.PositiveVotes = this.votesService.CountPositiveVotes(id); // ?
-            detailsRecipeViewModel.NegativeVotes = this.votesService.CountNegativeVotes(id); // ?
+            detailsRecipeViewModel.PositiveVotes = this.votesService.CountVotes(id)[0];
+            detailsRecipeViewModel.NegativeVotes = this.votesService.CountVotes(id)[1];
             return this.View(detailsRecipeViewModel);
         }
 

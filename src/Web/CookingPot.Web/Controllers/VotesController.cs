@@ -30,8 +30,8 @@
 
             await this.votesService.AddVote(inputModel.RecipeId, user.Id, inputModel.IsUpVote);
 
-            int positiveVotes = this.votesService.CountPositiveVotes(inputModel.RecipeId);
-            int negativeVotes = this.votesService.CountNegativeVotes(inputModel.RecipeId);
+            int positiveVotes = this.votesService.CountVotes(inputModel.RecipeId)[0];
+            int negativeVotes = this.votesService.CountVotes(inputModel.RecipeId)[1];
 
             return new VoteCounterModel
             {

@@ -6,8 +6,6 @@
     {
         Task AddVote(int recipeId, string userId, bool isUpVote);
 
-        int CountPositiveVotes(int recipeId);
-
-        int CountNegativeVotes(int recipeId);
+        int[] CountVotes(int recipeId);
     }
 }

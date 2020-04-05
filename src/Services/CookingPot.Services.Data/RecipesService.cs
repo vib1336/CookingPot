@@ -18,8 +18,8 @@
     public class RecipesService : IRecipesService
     {
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
-        private readonly IRepository<ProductRecipe> productRecipeRepository; // ?
-        private readonly IRepository<Product> productsRepository; // ?
+        private readonly IRepository<ProductRecipe> productRecipeRepository;
+        private readonly IRepository<Product> productsRepository;
         private readonly Cloudinary cloudinary;
 
         public RecipesService(
@@ -55,7 +55,7 @@
         public async Task<int> AddRecipeAsync(string name, string description, IFormFile image, string neededProducts, int subcategoryId, string userId)
         {
             string[] splittedProducts = neededProducts
-                .Split(new[] { "\r\n" }, StringSplitOptions.None)
+                .Split(new[] { NewLine }, StringSplitOptions.None)
                 .Where(sp => sp != string.Empty)
                 .ToArray();
 

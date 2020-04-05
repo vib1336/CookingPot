@@ -25,5 +25,7 @@
         public const int RecipeProductsMaxLength = 400;
 
         public const int RecipeProductsMinLength = 10;
+
+        public const string SaladsSubcategoryName = "All Salads";
     }
 }

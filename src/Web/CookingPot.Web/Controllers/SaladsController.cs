@@ -1,13 +1,11 @@
 ﻿namespace CookingPot.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Salads;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
+    using static CookingPot.Common.GlobalConstants;
 
     public class SaladsController : Controller
     {
@@ -23,7 +21,7 @@
         public IActionResult Subcategories()
         {
             var saladsSubcategoryViewModel = this.subcategoriesService
-                .GetSubcategory<SaladsSubcategoryViewModel>("All Salads");
+                .GetSubcategory<SaladsSubcategoryViewModel>(SaladsSubcategoryName);
 
             return this.View(saladsSubcategoryViewModel);
         }
