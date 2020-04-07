@@ -57,6 +57,7 @@
             string[] splittedProducts = neededProducts
                 .Split(new[] { NewLine }, StringSplitOptions.None)
                 .Where(sp => sp != string.Empty)
+                .Select(sp => sp.TrimEnd(' ', ',', '.', '-'))
                 .ToArray();
 
             /** Cloudinary upload image **/

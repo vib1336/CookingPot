@@ -11,6 +11,7 @@
         {
             this.RecipeProducts = new HashSet<ProductRecipe>();
             this.Votes = new HashSet<Vote>();
+            this.Comments = new HashSet<Comment>();
         }
 
         [Required]
@@ -32,5 +33,7 @@
         public virtual ICollection<ProductRecipe> RecipeProducts { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -2,10 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text.RegularExpressions;
 
-    using AutoMapper;
     using CookingPot.Data.Models;
     using CookingPot.Services.Mapping;
 
@@ -38,6 +36,8 @@
 
         public string CurrentUserId { get; set; }
 
+        public string CurrentUserName { get; set; }
+
         public int SubcategoryId { get; set; }
 
         public string ControllerName { get; set; }
@@ -47,5 +47,7 @@
         public int NegativeVotes { get; set; }
 
         public IEnumerable<ProductViewModel> RecipeProducts { get; set; }
+
+        public IEnumerable<CommentViewModel> RecipeComments { get; set; }
     }
 }

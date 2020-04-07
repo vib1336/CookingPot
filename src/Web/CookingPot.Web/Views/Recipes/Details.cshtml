@@ -24,7 +24,7 @@
         </a>
         <span id="positiveVotes">@Model.PositiveVotes</span>
     </div>
-    <br/>
+    <br />
     <div class="float-right">
         <a href="#" onclick="sendVote(@Model.Id, false)">
             <i class="fa fa-thumbs-down"></i>
@@ -45,21 +45,88 @@
         </ul>
     </p>
     <div>
-        <a class="btn btn-primary btn-lg float-left" href="/@Model.ControllerName/All" role="button">Back</a>
+        <button type="button" class="btn btn-primary" id="buttonCommentForm" onclick="showCommentBox()">Comment</button>
         @if (Model.CurrentUserId == Model.UserId)
         {
             <a class="btn btn-primary btn-lg float-right" href="/Recipes/EditRecipe?id=@Model.Id" role="button">Edit</a>
         }
 
     </div>
+    <br />
+    <div id="commentsSection">
+        @if (Model.RecipeComments.Any())
+        {
+            @foreach (var comment in Model.RecipeComments)
+            {
+                <div>
+                    <span><i class="fas fa-calendar"></i> @comment.CreatedOn.Day/@comment.CreatedOn.Month/@comment.CreatedOn.Year | <i class="fas fa-user"></i> @comment.UserUserName</span>
+                    <br />
+                    <p>@comment.Content</p>
+                    <hr />
+                </div>
+            }
+        }
+    </div>
 </div>
+
+<form id="commentForm" method="post" style="display: none">
+    <div class="form-group">
+        <label>Your comment:</label>
+        <textarea rows="5" class="form-control" name="Comment" placeholder="Please, type your comment"></textarea>
+    </div>
+    <a href="#" class="btn btn-secondary" onclick="postComment(@Model.Id, '@Model.CurrentUserId')">Add comment</a>
+</form>
+
 
 @section Scripts {
     <script>
+        // Show comment form
+        function showCommentBox() {
+            $('#commentForm').show();
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#commentForm").offset().top
+            }, 2000);
+        }
+        // Post comment ajax
+        function postComment(recipeId, currentUserId) {
+            var token = $("#commentForm input[name=__RequestVerificationToken]").val();
+            var comment = $("#commentForm div.form-group textarea").val();
+            var json = { recipeId: recipeId, currentUserId: currentUserId, comment: comment };
+
+            $.ajax({
+                url: "/api/comments",
+                method: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    let div = document.createElement('div');
+                    let span = document.createElement('span');
+                    span.textContent = data.createdOn + ' | ' + data.userUserName;
+                    let firstI = document.createElement('i');
+                    firstI.setAttribute('class', 'fas fa-calendar');
+                    let secondI = document.createElement('i');
+                    secondI.setAttribute('class', 'fas fa-user');
+                    let br = document.createElement('br');
+                    let p = document.createElement('p');
+                    p.textContent = data.content;
+                    let hr = document.createElement('hr');
+                    div.appendChild(span);
+                    div.appendChild(br);
+                    div.appendChild(p);
+                    div.appendChild(hr);
+                    document.getElementById('commentsSection').appendChild(div);
+                    document.querySelector('#commentForm div.form-group textarea').value = '';
+                }
+                    
+            });
+        }
+
         $(document).ready(function () {
-        setTimeout(function () {
-        $('#tempData').hide();
-        }, 3000);
+            setTimeout(function () {
+                $('#tempData').hide();
+            }, 3000);
         });
 
         function sendVote(recipeId, isUpVote) {
