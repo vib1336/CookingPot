@@ -12,10 +12,10 @@
 }
 
 <div class="jumbotron">
-    <span><i class="fas fa-calendar"></i> @Model.CreatedOn.Day/@Model.CreatedOn.Month/@Model.CreatedOn.Year | <i class="fas fa-user"></i> @Model.ShortUsername</span>
+    <span><i class="fas fa-calendar"></i><time datetime="@Model.CreatedOn.ToString("O")"></time> | <i class="fas fa-user"></i> @Model.ShortUsername</span>
     @if (Model.ModifiedOn.HasValue)
     {
-        <span>| <i class="fas fa-edit"></i>@Model.ModifiedOn.Value</span>
+        <span>| <i class="fas fa-edit"></i><time datetime="@Model.ModifiedOn.Value.ToString("O")"></time></span>
     }
     <form id="votesForm" method="post"></form>
     <div class="float-right">
@@ -59,7 +59,7 @@
             @foreach (var comment in Model.RecipeComments)
             {
                 <div>
-                    <span><i class="fas fa-calendar"></i> @comment.CreatedOn.Day/@comment.CreatedOn.Month/@comment.CreatedOn.Year | <i class="fas fa-user"></i> @comment.UserUserName</span>
+                    <span><i class="fas fa-calendar"></i><time datetime="@comment.CreatedOn.ToString("O")"></time>  | <i class="fas fa-user"></i> @comment.UserUserName</span>
                     <br />
                     <p>@comment.Content</p>
                     <hr />
@@ -103,11 +103,7 @@
                 success: function (data) {
                     let div = document.createElement('div');
                     let span = document.createElement('span');
-                    span.textContent = data.createdOn + ' | ' + data.userUserName;
-                    let firstI = document.createElement('i');
-                    firstI.setAttribute('class', 'fas fa-calendar');
-                    let secondI = document.createElement('i');
-                    secondI.setAttribute('class', 'fas fa-user');
+                    span.innerHTML = `<i class="fas fa-calendar"></i>${data.createdOn} | <i class="fas fa-user"></i> ${data.userUserName}`;
                     let br = document.createElement('br');
                     let p = document.createElement('p');
                     p.textContent = data.content;

@@ -1,6 +1,7 @@
 ﻿namespace CookingPot.Web
 {
     using System.Reflection;
+
     using CloudinaryDotNet;
     using CookingPot.Data;
     using CookingPot.Data.Common;
