@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using CookingPot.Data.Common.Repositories;
     using CookingPot.Data.Models;
@@ -13,8 +14,13 @@
         private readonly IRepository<Category> categoriesRepository;
 
         public CategoryService(IRepository<Category> categoriesRepository)
+            => this.categoriesRepository = categoriesRepository;
+
+        public async Task AddCategoryAsync(string name)
         {
-            this.categoriesRepository = categoriesRepository;
+            Category category = new Category { Name = name };
+            await this.categoriesRepository.AddAsync(category);
+            await this.categoriesRepository.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetCategories<T>()

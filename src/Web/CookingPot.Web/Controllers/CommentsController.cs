@@ -13,9 +13,7 @@
         private readonly ICommentsService commentsService;
 
         public CommentsController(ICommentsService commentsService)
-        {
-            this.commentsService = commentsService;
-        }
+            => this.commentsService = commentsService;
 
         public async Task<ActionResult<CommentReturnInfoModel>> Comment(CommentInputModel inputModel)
         {

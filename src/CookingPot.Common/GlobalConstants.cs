@@ -27,5 +27,13 @@
         public const int RecipeProductsMinLength = 10;
 
         public const string SaladsSubcategoryName = "All Salads";
+
+        public const int SubcategoryMaxInputName = 50;
+
+        public const int SubcategoryMinInputName = 3;
+
+        public const int SubcategoryMaxInputDescription = 100;
+
+        public const int SubcategoryMinInputDescription = 5;
     }
 }

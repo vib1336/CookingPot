@@ -12,9 +12,7 @@
         private readonly IRepository<Vote> votesRepository;
 
         public VotesService(IRepository<Vote> votesRepository)
-        {
-            this.votesRepository = votesRepository;
-        }
+            => this.votesRepository = votesRepository;
 
         public async Task AddVote(int recipeId, string userId, bool isUpVote)
         {

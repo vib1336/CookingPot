@@ -1,0 +1,15 @@
+﻿@model CookingPot.Web.ViewModels.Categories.CategoryInputModel;
+
+@{
+    this.ViewData["Title"] = "Add category";
+}
+
+<form asp-controller="Categories" asp-action="AddCategory" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Add category" class="btn btn-primary" />
+</form>
