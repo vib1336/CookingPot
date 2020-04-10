@@ -9,5 +9,7 @@
         Task AddSubcategoryAsync(string name, string description, IFormFile image, int categoryId);
 
         T GetSubcategory<T>(string subcategory = null);
+
+        int GetSubcategoryId(string name);
     }
 }

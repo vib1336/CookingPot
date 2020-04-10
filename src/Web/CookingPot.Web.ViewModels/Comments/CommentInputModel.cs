@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CookingPot.Web.ViewModels.Comments
+﻿namespace CookingPot.Web.ViewModels.Comments
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class CommentInputModel
     {
         public int RecipeId { get; set; }

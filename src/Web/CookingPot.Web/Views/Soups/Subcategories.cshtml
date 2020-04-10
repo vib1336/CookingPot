@@ -1,0 +1,23 @@
+﻿@model CookingPot.Web.ViewModels.Soups.AllSoupsSubcategoryViewModel;
+@{
+    this.ViewData["Title"] = "Soups menu";
+}
+
+<div class="row">
+    <div class="card" style="width: 18rem;margin: 10px">
+        <img class="card-img-top" height="200" width="100" src="@Model.MeatSoups.ImageUrl" alt="@Model.MeatSoups.Name">
+        <div class="card-body">
+            <h5 class="card-title">@Model.MeatSoups.Name</h5>
+            <p class="card-text">@Model.MeatSoups.Description</p>
+            <a href="/Soups/AllMeatSoups" class="btn btn-primary">Show all meat soups</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;margin: 10px">
+        <img class="card-img-top" height="200" width="100" src="@Model.VegetarianSoups.ImageUrl" alt="@Model.VegetarianSoups.Name">
+        <div class="card-body">
+            <h5 class="card-title">@Model.VegetarianSoups.Name</h5>
+            <p class="card-text">@Model.VegetarianSoups.Description</p>
+            <a href="/Soups/AllVegetarianSoups" class="btn btn-primary">Show all vegetarian soups</a>
+        </div>
+    </div>
+</div>

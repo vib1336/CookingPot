@@ -4,6 +4,7 @@
 
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Comments;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
@@ -15,6 +16,8 @@
         public CommentsController(ICommentsService commentsService)
             => this.commentsService = commentsService;
 
+        [HttpPost]
+        [Authorize]
         public async Task<ActionResult<CommentReturnInfoModel>> Comment(CommentInputModel inputModel)
         {
             var commentId = await this.commentsService.AddCommentAsync(inputModel.RecipeId, inputModel.CurrentUserId, inputModel.Comment);

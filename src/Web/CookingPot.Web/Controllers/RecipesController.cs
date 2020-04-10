@@ -114,6 +114,11 @@
                 this.BadRequest(); // ?
             }
 
+            if (!this.ModelState.IsValid)
+            {
+                return this.View("EditRecipe", editModel);
+            }
+
             await this.recipesService.UpdateRecipeAsync(editModel.Id, editModel.Name, editModel.Description, editModel.ProductsForViewModel);
             this.TempData["InfoMessage"] = RecipeEdited;
             return this.RedirectToAction(nameof(this.Details), new { id = editModel.Id });

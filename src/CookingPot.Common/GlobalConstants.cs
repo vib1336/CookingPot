@@ -35,5 +35,9 @@
         public const int SubcategoryMaxInputDescription = 100;
 
         public const int SubcategoryMinInputDescription = 5;
+
+        public const string MeatSoups = "Meat soups";
+
+        public const string VegetarianSoups = "Vegetarian soups";
     }
 }

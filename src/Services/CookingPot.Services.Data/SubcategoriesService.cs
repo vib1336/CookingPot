@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using CookingPot.Data.Common.Repositories;
@@ -56,5 +57,11 @@
         public T GetSubcategory<T>(string subcategory = null)
             => this.subcategoriesRepository.All()
             .Where(s => s.Name == subcategory).To<T>().FirstOrDefault();
+
+        public int GetSubcategoryId(string name)
+            => this.subcategoriesRepository.All()
+            .Where(s => s.Name.Contains(name))
+            .Select(s => s.Id)
+            .FirstOrDefault();
     }
 }

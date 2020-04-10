@@ -29,10 +29,12 @@
         [Authorize]
         public IActionResult All(int page = 1)
         {
+            int subcategoryId = this.subcategoriesService.GetSubcategoryId(SaladsSubcategoryName);
+
             var allSaladsViewModel = new AllSaladsViewModel
             {
-                AllSalads = this.recipesService.GetRecipes<DisplaySaladSubcategoryViewModel>(1, page),
-                Total = this.recipesService.GetTotalRecipesFromSubcategory(1),
+                AllSalads = this.recipesService.GetRecipes<DisplaySaladSubcategoryViewModel>(subcategoryId, page),
+                Total = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId),
                 CurrentPage = page,
             };
             return this.View(allSaladsViewModel);
