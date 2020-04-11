@@ -62,6 +62,7 @@
         public async Task<IActionResult> Details(int id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
+            bool isInRole = await this.userManager.IsInRoleAsync(user, AdministratorRoleName);
 
             var detailsRecipeViewModel = this.recipesService.GetRecipe<DetailsRecipeViewModel>(id);
 
@@ -73,11 +74,7 @@
 
             detailsRecipeViewModel.CurrentUserName = user.UserName;
             detailsRecipeViewModel.CurrentUserId = user.Id;
-            detailsRecipeViewModel.ControllerName = detailsRecipeViewModel.SubcategoryId switch
-            {
-                1 => "Salads",
-                _ => string.Empty,
-            };
+            detailsRecipeViewModel.IsUserInRole = isInRole;
             detailsRecipeViewModel.PositiveVotes = this.votesService.CountVotes(id)[0];
             detailsRecipeViewModel.NegativeVotes = this.votesService.CountVotes(id)[1];
             detailsRecipeViewModel.RecipeComments = this.commentsService.GetRecipeComments<CommentViewModel>(id);
@@ -122,6 +119,19 @@
             await this.recipesService.UpdateRecipeAsync(editModel.Id, editModel.Name, editModel.Description, editModel.ProductsForViewModel);
             this.TempData["InfoMessage"] = RecipeEdited;
             return this.RedirectToAction(nameof(this.Details), new { id = editModel.Id });
+        }
+
+        [Authorize(Roles = AdministratorRoleName)]
+        public IActionResult AreYouSureDelete(int id)
+        {
+            return this.View(id);
+        }
+
+        [Authorize(Roles = AdministratorRoleName)]
+        public IActionResult Delete(int id)
+        {
+            this.recipesService.DeleteRecipe(id);
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

@@ -38,9 +38,7 @@
 
         public string CurrentUserName { get; set; }
 
-        public int SubcategoryId { get; set; }
-
-        public string ControllerName { get; set; }
+        public bool IsUserInRole { get; set; }
 
         public int PositiveVotes { get; set; }
 

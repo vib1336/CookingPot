@@ -12,6 +12,11 @@
 }
 
 <div class="jumbotron">
+    @if (Model.IsUserInRole)
+    {
+        <a href="/Recipes/AreYouSureDelete?id=@Model.Id" class="btn btn-danger float-right">Delete</a>
+        <br />
+    }
     <span><i class="fas fa-calendar"></i> <time datetime="@Model.CreatedOn.ToString("O")"></time> | <i class="fas fa-user"></i> @Model.ShortUsername</span>
     @if (Model.ModifiedOn.HasValue)
     {

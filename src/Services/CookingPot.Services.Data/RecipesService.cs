@@ -37,7 +37,7 @@
         public IEnumerable<T> GetRecipes<T>(int subcategoryId, int page)
         {
             IQueryable<Recipe> recipes = this.recipesRepository.All()
-                .Where(r => r.SubcategoryId == subcategoryId)
+                .Where(r => r.SubcategoryId == subcategoryId && !r.IsDeleted)
                 .Skip((page - 1) * RecipesPerPage)
                 .Take(RecipesPerPage);
 
@@ -49,7 +49,7 @@
 
         public int GetTotalRecipesFromSubcategory(int subcategoryId)
             => this.recipesRepository.All()
-            .Where(r => r.SubcategoryId == subcategoryId)
+            .Where(r => r.SubcategoryId == subcategoryId && !r.IsDeleted)
             .Count();
 
         public async Task<int> AddRecipeAsync(string name, string description, IFormFile image, string neededProducts, int subcategoryId, string userId)
@@ -172,5 +172,13 @@
 
         public bool RecipeExists(int id)
             => this.recipesRepository.All().Any(r => r.Id == id);
+
+        public void DeleteRecipe(int id)
+        {
+            Recipe recipe = this.recipesRepository.All().Where(r => r.Id == id).FirstOrDefault();
+            recipe.IsDeleted = true;
+            recipe.DeletedOn = DateTime.UtcNow;
+            this.recipesRepository.SaveChangesAsync().GetAwaiter().GetResult();
+        }
     }
 }

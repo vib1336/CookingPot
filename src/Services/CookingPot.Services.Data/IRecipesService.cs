@@ -18,5 +18,7 @@
         Task UpdateRecipeAsync(int id, string name, string description, string products); // ?
 
         bool RecipeExists(int id);
+
+        void DeleteRecipe(int id);
     }
 }
