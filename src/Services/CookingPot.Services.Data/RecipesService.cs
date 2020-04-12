@@ -58,6 +58,7 @@
                 .Split(new[] { NewLine }, StringSplitOptions.None)
                 .Where(sp => sp != string.Empty)
                 .Select(sp => sp.TrimEnd(' ', ',', '.', '-'))
+                .Distinct()
                 .ToArray();
 
             /** Cloudinary upload image **/
