@@ -64,7 +64,7 @@
             @foreach (var comment in Model.RecipeComments)
             {
                 <div>
-                    <span><i class="fas fa-calendar"></i> <time datetime="@comment.CreatedOn.ToString("O")"></time> | <i class="fas fa-user"></i> @comment.UserUserName</span>
+                    <span><i class="fas fa-calendar"></i> <time datetime="@comment.CreatedOn.ToString("O")"></time> | <i class="fas fa-user"></i> @comment.ShortUsername</span>
                     <br />
                     <p>@comment.Content</p>
                     <hr />
@@ -108,7 +108,7 @@
                 success: function (data) {
                     let div = document.createElement('div');
                     let span = document.createElement('span');
-                    span.innerHTML = `<i class="fas fa-calendar"></i> ${data.createdOn} | <i class="fas fa-user"></i> ${data.userUserName}`;
+                    span.innerHTML = `<i class="fas fa-calendar"></i> ${data.createdOn} | <i class="fas fa-user"></i> ${data.shortUsername}`;
                     let br = document.createElement('br');
                     let p = document.createElement('p');
                     p.textContent = data.content;

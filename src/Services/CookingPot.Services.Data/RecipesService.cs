@@ -79,7 +79,7 @@
             /** Cloudinary upload image **/
             Recipe recipe = new Recipe
             {
-                Name = name,
+                Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(',', ' ', '.', '-', '_'),
                 Description = description,
                 ImageUrl = uploadResult.Uri.AbsoluteUri,
                 SubcategoryId = subcategoryId,
@@ -164,7 +164,7 @@
 
             await this.productRecipeRepository.SaveChangesAsync();
 
-            recipeToEdit.Name = name;
+            recipeToEdit.Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(',', ' ', '.', '-', '_');
             recipeToEdit.Description = description;
             recipeToEdit.ModifiedOn = DateTime.UtcNow;
 

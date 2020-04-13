@@ -1,6 +1,7 @@
 ﻿namespace CookingPot.Web.ViewModels.Recipes
 {
     using System;
+    using System.Text.RegularExpressions;
 
     using CookingPot.Data.Models;
     using CookingPot.Services.Mapping;
@@ -12,5 +13,14 @@
         public string Content { get; set; }
 
         public string UserUserName { get; set; }
+
+        public string ShortUsername
+        {
+            get
+            {
+                string hideEmailFromUsername = Regex.Replace(this.UserUserName, @"@[A-Za-z0-9](.)*", string.Empty);
+                return hideEmailFromUsername;
+            }
+        }
     }
 }
