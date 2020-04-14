@@ -39,5 +39,9 @@
         public const string MeatSoups = "Meat soups";
 
         public const string VegetarianSoups = "Vegetarian soups";
+
+        public const string MeatMainCourses = "Meat main courses";
+
+        public const string VegetarianMainCourses = "Vegetarian main courses";
     }
 }

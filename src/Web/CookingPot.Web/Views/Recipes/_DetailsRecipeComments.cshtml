@@ -1,0 +1,8 @@
+﻿@model CookingPot.Web.ViewModels.Recipes.CommentViewModel
+
+<div>
+    <span><i class="fas fa-calendar"></i> <time datetime="@Model.CreatedOn.ToString("O")"></time> | <i class="fas fa-user"></i> @Model.ShortUsername</span>
+    <br />
+    <p>@Model.Content</p>
+    <hr />
+</div>

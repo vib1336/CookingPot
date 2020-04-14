@@ -1,0 +1,23 @@
+﻿@model CookingPot.Web.ViewModels.MainCourses.MainCoursesSubcategoryViewModel
+@{
+    this.ViewData["Title"] = "Main courses";
+}
+
+<div class="row">
+    <div class="card" style="width: 18rem;margin: 10px">
+        <img class="card-img-top" height="200" width="100" src="@Model.MeatMainCourses.ImageUrl" alt="@Model.MeatMainCourses.Name">
+        <div class="card-body">
+            <h5 class="card-title">@Model.MeatMainCourses.Name</h5>
+            <p class="card-text">@Model.MeatMainCourses.Description</p>
+            <a href="/Maincourses/AllMeatMainCourses" class="btn btn-primary">Show all meat main courses</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;margin: 10px">
+        <img class="card-img-top" height="200" width="100" src="@Model.VegetarianMainCourses.ImageUrl" alt="@Model.VegetarianMainCourses.Name">
+        <div class="card-body">
+            <h5 class="card-title">@Model.VegetarianMainCourses.Name</h5>
+            <p class="card-text">@Model.VegetarianMainCourses.Description</p>
+            <a href="/Maincourses/AllVegetarianMainCourses" class="btn btn-primary">Show all vegetarian main courses</a>
+        </div>
+    </div>
+</div>

@@ -1,11 +1,11 @@
-﻿@model CookingPot.Web.ViewModels.Salads.AllSaladsViewModel
+﻿@model CookingPot.Web.ViewModels.MainCourses.AllMeatMainCoursesViewModel
 
 @{
-    this.ViewData["Title"] = "All salads";
+    this.ViewData["Title"] = "All meat main courses";
 }
 
 <div class="row">
-    @foreach (var recipe in Model.AllSalads)
+    @foreach (var recipe in Model.AllMeatMainCourses)
     {
         <div class="card" style="width: 18rem;margin: 10px">
             <img class="card-img-top" height="200" width="100" src="@recipe.ImageUrl" alt="@recipe.Name">
@@ -16,17 +16,15 @@
             </div>
         </div>
     }
-
 </div>
 
 <div>
     @if (!Model.PreviousDisabled)
     {
-        <a href="/Salads/All?page=@Model.PreviousPage" class="float-left btn btn-success">Prev</a>
+        <a href="/Maincourses/AllMeatMainCourses?page=@Model.PreviousPage" class="float-left btn btn-success">Prev</a>
     }
     @if (!Model.NextDisabled)
     {
-        <a href="/Salads/All?page=@Model.NextPage" class="float-right btn btn-success">Next</a>
+        <a href="/Maincourses/AllMeatMainCourses?page=@Model.NextPage" class="float-right btn btn-success">Next</a>
     }
 </div>
-

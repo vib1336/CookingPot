@@ -15,18 +15,9 @@
             => this.recipesRepository = recipesRepository;
 
         public IEnumerable<T> Search<T>(string searchValue)
-        {
-            if (string.IsNullOrWhiteSpace(searchValue))
-            {
-                return this.recipesRepository.All()
-                    .To<T>()
-                    .ToList();
-            }
-
-            return this.recipesRepository.All()
+            => this.recipesRepository.All()
                 .Where(r => r.Name.ToLower().Contains(searchValue.ToLower()) && !r.IsDeleted)
                 .To<T>()
                 .ToList();
-        }
     }
 }

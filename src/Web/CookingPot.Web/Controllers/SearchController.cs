@@ -1,33 +1,30 @@
 ﻿namespace CookingPot.Web.Controllers
 {
+    using System.Collections.Generic;
+
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Search;
     using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
 
     public class SearchController : Controller
     {
         private readonly ISearchService searchService;
 
         public SearchController(ISearchService searchService)
-        {
-            this.searchService = searchService;
-        }
+            => this.searchService = searchService;
 
-        public IActionResult SearchRecipe()
+        public IActionResult SearchRecipe(string searchValue)
         {
-            var searchViewModel = new SearchInputModel();
-            searchViewModel.FoundRecipes = new List<DisplaySearchRecipeViewModel>();
-            return this.View(searchViewModel);
-        }
+            var vm = new SearchInputModel();
+            vm.FoundRecipes = new List<DisplaySearchRecipeViewModel>();
 
-        [HttpPost]
-        public IActionResult SearchRecipe(SearchInputModel inputModel)
-        {
-            var searchViewModel = new SearchInputModel();
-            searchViewModel.FoundRecipes = this.searchService.Search<DisplaySearchRecipeViewModel>(inputModel.SearchValue);
+            if (!string.IsNullOrWhiteSpace(searchValue))
+            {
+                vm.FoundRecipes = this.searchService.Search<DisplaySearchRecipeViewModel>(searchValue);
+                return this.View(vm);
+            }
 
-            return this.View(searchViewModel);
+            return this.View(vm);
         }
     }
 }
