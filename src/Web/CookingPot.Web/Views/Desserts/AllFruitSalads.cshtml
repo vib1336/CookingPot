@@ -1,0 +1,30 @@
+﻿@model CookingPot.Web.ViewModels.Desserts.AllFruitSaladsViewModel
+
+@{
+    this.ViewData["Title"] = "All fruit salads";
+}
+
+<div class="row">
+    @foreach (var recipe in Model.AllFruitSalads)
+    {
+        <div class="card" style="width: 18rem;margin: 10px">
+            <img class="card-img-top" height="200" width="100" src="@recipe.ImageUrl" alt="@recipe.Name">
+            <div class="card-body">
+                <h5 class="card-title">@recipe.ShortName</h5>
+                <p class="card-text">@recipe.ShortDescription</p>
+                <a href="/Recipes/Details?id=@recipe.Id" class="btn btn-primary">View recipe</a>
+            </div>
+        </div>
+    }
+</div>
+
+<div>
+    @if (!Model.PreviousDisabled)
+    {
+        <a href="/Desserts/AllFruitSalads?page=@Model.PreviousPage" class="float-left btn btn-success">Prev</a>
+    }
+    @if (!Model.NextDisabled)
+    {
+        <a href="/Desserts/AllFruitSalads?page=@Model.NextPage" class="float-right btn btn-success">Next</a>
+    }
+</div>

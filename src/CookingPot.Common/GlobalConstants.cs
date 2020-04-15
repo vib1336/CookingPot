@@ -43,5 +43,9 @@
         public const string MeatMainCourses = "Meat main courses";
 
         public const string VegetarianMainCourses = "Vegetarian main courses";
+
+        public const string Cakes = "Cakes";
+
+        public const string FruitSalads = "Fruit salads";
     }
 }

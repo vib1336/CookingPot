@@ -1,0 +1,23 @@
+﻿@model CookingPot.Web.ViewModels.Desserts.DessertsSubcategoryViewModel
+@{
+    this.ViewData["Title"] = "Desserts";
+}
+
+<div class="row">
+    <div class="card" style="width: 18rem;margin: 10px">
+        <img class="card-img-top" height="200" width="100" src="@Model.Cakes.ImageUrl" alt="@Model.Cakes.Name">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Cakes.Name</h5>
+            <p class="card-text">@Model.Cakes.Description</p>
+            <a href="/Desserts/AllCakes" class="btn btn-primary">Show all cakes</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;margin: 10px">
+        <img class="card-img-top" height="200" width="100" src="@Model.FruitSalads.ImageUrl" alt="@Model.FruitSalads.Name">
+        <div class="card-body">
+            <h5 class="card-title">@Model.FruitSalads.Name</h5>
+            <p class="card-text">@Model.FruitSalads.Description</p>
+            <a href="/Desserts/AllFruitSalads" class="btn btn-primary">Show all fruit salads</a>
+        </div>
+    </div>
+</div>
