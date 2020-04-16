@@ -28,6 +28,8 @@
         [Display(Name = "Products needed")]
         public string RecipeProducts { get; set; }
 
+        public string RecaptchaValue { get; set; }
+
         public IEnumerable<CategoryDisplayModel> Categories { get; set; } // ?
     }
 }

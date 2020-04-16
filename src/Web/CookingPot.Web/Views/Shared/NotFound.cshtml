@@ -8,10 +8,19 @@
     <h5>@this.ViewBag.ErrorMessage</h5>
 </div>
 <br />
-<h5>You might be interested in one of these links.</h5>
+<h5>You might be interested in one of these categories:</h5>
 <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
     Home
 </a>
-<a asp-controller="Salads" asp-action="All" class="btn btn-primary">
+<a asp-controller="Salads" asp-action="Subcategories" class="btn btn-primary">
     Salads
+</a>
+<a asp-controller="Soups" asp-action="Subcategories" class="btn btn-primary">
+    Soups
+</a>
+<a asp-controller="Desserts" asp-action="Subcategories" class="btn btn-primary">
+    Desserts
+</a>
+<a asp-controller="Maincourses" asp-action="Subcategories" class="btn btn-primary">
+    Main Courses
 </a>

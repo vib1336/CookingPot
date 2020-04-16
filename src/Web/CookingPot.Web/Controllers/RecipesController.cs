@@ -1,6 +1,8 @@
 ﻿namespace CookingPot.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -11,6 +13,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
 
     using static CookingPot.Common.GlobalConstants;
 
@@ -22,19 +26,22 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IVotesService votesService;
         private readonly ICommentsService commentsService;
+        private IConfiguration configuration;
 
         public RecipesController(
             IRecipesService recipesService,
             ICategoryService categoryService,
             UserManager<ApplicationUser> userManager,
             IVotesService votesService,
-            ICommentsService commentsService)
+            ICommentsService commentsService,
+            IConfiguration configuration)
         {
             this.recipesService = recipesService;
             this.categoryService = categoryService;
             this.userManager = userManager;
             this.votesService = votesService;
             this.commentsService = commentsService;
+            this.configuration = configuration;
         }
 
         public IActionResult AddRecipe()
@@ -53,9 +60,16 @@
                 return this.View(inputModel);
             }
 
+            // Recaptcha
+            var isCaptchaValid = this.IsCaptchaValid(inputModel.RecaptchaValue);
+            if (!isCaptchaValid)
+            {
+                this.ModelState.AddModelError("GoogleRecaptcha", "The captcha is not valid");
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
-            int recipeId = await this.recipesService.AddRecipeAsync(inputModel.Name, inputModel.Description, inputModel.Image, inputModel.RecipeProducts, inputModel.SubcategoryId, user.Id);
+            var recipeId = await this.recipesService.AddRecipeAsync(inputModel.Name, inputModel.Description, inputModel.Image, inputModel.RecipeProducts, inputModel.SubcategoryId, user.Id);
             this.TempData["InfoMessage"] = RecipePosted;
             return this.RedirectToAction(nameof(this.Details), new { id = recipeId });
         }
@@ -63,7 +77,7 @@
         public async Task<IActionResult> Details(int id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
-            bool isInRole = await this.userManager.IsInRoleAsync(user, AdministratorRoleName);
+            var isInRole = await this.userManager.IsInRoleAsync(user, AdministratorRoleName);
 
             var detailsRecipeViewModel = this.recipesService.GetRecipe<DetailsRecipeViewModel>(id);
 
@@ -133,6 +147,34 @@
         {
             this.recipesService.DeleteRecipe(id);
             return this.RedirectToAction("Index", "Home");
+        }
+
+        private bool IsCaptchaValid(string response)
+        {
+            try
+            {
+                var secret = this.configuration["GoogleRecaptcha:SecretKey"];
+                using var client = new HttpClient();
+
+                var values = new Dictionary<string, string>
+                {
+                    { "secret", secret },
+                    { "response", response },
+                    { "remoteip", this.HttpContext.Connection.RemoteIpAddress.ToString() },
+                };
+                var content = new FormUrlEncodedContent(values);
+                var httpResponse = client.PostAsync("https://www.google.com/recaptcha/api/siteverify", content).GetAwaiter().GetResult();
+                var captchaResponseJson = httpResponse.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                var captchaResult = JsonConvert.DeserializeObject<CaptchaResponseViewModel>(captchaResponseJson);
+
+                return captchaResult.Success
+                    && captchaResult.Action == "addrecipe_form"
+                    && captchaResult.Score > 0.5;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

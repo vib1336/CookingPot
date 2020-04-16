@@ -1,4 +1,5 @@
 ﻿@model CookingPot.Web.ViewModels.Recipes.RecipeInputModel
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 
 @{
     this.ViewData["Title"] = "Add recipe";
@@ -17,12 +18,12 @@
         <select class="form-control" name="SubcategoryId">
             @foreach (var category in Model.Categories)
             {
-                <optgroup label="@category.Name">
-                    @foreach (var subcategory in category.Subcategories)
+            <optgroup label="@category.Name">
+                @foreach (var subcategory in category.Subcategories)
                     {
-                        <option value="@subcategory.Id">@subcategory.Name</option>
+                <option value="@subcategory.Id">@subcategory.Name</option>
                     }
-                </optgroup>
+            </optgroup>
             }
         </select>
     </div>
@@ -44,8 +45,19 @@
         <br />
         <input asp-for="Image" />
     </div>
-
+    <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
     <input type="submit" value="Post recipe" class="btn btn-primary" />
-
 </form>
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:ClientKey"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:ClientKey"]', { action: 'addrecipe_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+}
 

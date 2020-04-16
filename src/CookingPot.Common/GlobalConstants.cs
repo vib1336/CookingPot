@@ -47,5 +47,7 @@
         public const string Cakes = "Cakes";
 
         public const string FruitSalads = "Fruit salads";
+
+        public const string NoResultsFound = "No results were found";
     }
 }

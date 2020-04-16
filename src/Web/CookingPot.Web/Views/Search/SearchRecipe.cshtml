@@ -3,6 +3,13 @@
     this.ViewData["Title"] = "Search";
 }
 
+@if (this.TempData["InfoMessage"] != null)
+{
+    <div id="tempData" class="alert alert-danger">
+        @this.TempData["InfoMessage"]
+    </div>
+}
+
 <form asp-controller="Search" asp-action="SearchRecipe" method="get">
     <div class="form-group">
         <label>Search</label>
