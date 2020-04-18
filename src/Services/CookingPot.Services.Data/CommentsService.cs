@@ -35,5 +35,9 @@
 
         public IEnumerable<T> GetRecipeComments<T>(int id)
             => this.commentsRepository.All().Where(c => c.RecipeId == id).To<T>().ToList();
+
+        // Test purposes
+        public int GetRecipeCountComments(int recipeId)
+            => this.commentsRepository.All().Where(c => c.RecipeId == recipeId).Count();
     }
 }

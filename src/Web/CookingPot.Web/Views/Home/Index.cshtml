@@ -3,7 +3,28 @@
     this.ViewData["Title"] = "Home Page";
 }
 
+@if (this.TempData["InfoMessage"] != null)
+{
+    <div id="tempData" class="alert alert-success">
+        @this.TempData["InfoMessage"]
+    </div>
+}
+
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <br />
+    <h4><i>"In France, cooking is a serious art form and a national sport."</i></h4>
+    <p class="float-right"><i>Julia Child</i></p>
+    <br/>
+    <img src="http://res.cloudinary.com/djugrzvgb/image/upload/v1587231622/ewqvfynsvn8lmfskxfhp.jpg" alt="@GlobalConstants.SystemName"/>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#tempData').hide();
+            }, 3000);
+        });
+    </script>
+}

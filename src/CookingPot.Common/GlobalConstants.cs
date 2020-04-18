@@ -10,9 +10,11 @@
 
         public const string NewLine = "\r\n";
 
-        public const string RecipePosted = "Recipe successfully posted!";
+        public const string RecipePosted = "Recipe was successfully posted!";
 
-        public const string RecipeEdited = "Recipe successfully edited!";
+        public const string RecipeEdited = "Recipe was successfully edited!";
+
+        public const string RecipeDeleted = "Recipe was successfully deleted!";
 
         public const int RecipeDescriptionMaxLength = 1000;
 

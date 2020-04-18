@@ -27,26 +27,30 @@
         public async Task AddSubcategoryAsync(string name, string description, IFormFile image, int categoryId)
         {
             /** Cloudinary upload image **/
-            byte[] destinationImage;
-
-            using var memoryStream = new MemoryStream();
-            await image.CopyToAsync(memoryStream);
-            destinationImage = memoryStream.ToArray();
-
-            using var destinationStream = new MemoryStream(destinationImage);
-
-            var uploadParams = new ImageUploadParams
+            ImageUploadResult uploadResult = null;
+            if (image != null)
             {
-                File = new FileDescription(image.FileName, destinationStream),
-            };
+                byte[] destinationImage;
 
-            var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
-            /** Cloudinary upload image **/
+                using var memoryStream = new MemoryStream();
+                await image.CopyToAsync(memoryStream);
+                destinationImage = memoryStream.ToArray();
+
+                using var destinationStream = new MemoryStream(destinationImage);
+
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(image.FileName, destinationStream),
+                };
+
+                uploadResult = await this.cloudinary.UploadAsync(uploadParams);
+            }
+
             Subcategory subcategory = new Subcategory
             {
                 Name = name,
                 Description = description,
-                ImageUrl = uploadResult.Uri.AbsoluteUri,
+                ImageUrl = uploadResult != null ? uploadResult.Uri.AbsoluteUri : null,
                 CategoryId = categoryId,
             };
 

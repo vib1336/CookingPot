@@ -64,7 +64,7 @@
             var isCaptchaValid = this.IsCaptchaValid(inputModel.RecaptchaValue);
             if (!isCaptchaValid)
             {
-                this.ModelState.AddModelError("GoogleRecaptcha", "The captcha is not valid");
+                return this.View(inputModel);
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
@@ -146,6 +146,7 @@
         public IActionResult Delete(int id)
         {
             this.recipesService.DeleteRecipe(id);
+            this.TempData["InfoMessage"] = RecipeDeleted;
             return this.RedirectToAction("Index", "Home");
         }
 
@@ -153,7 +154,7 @@
         {
             try
             {
-                var secret = this.configuration["GoogleRecaptcha:SecretKey"];
+                var secret = this.configuration["GoogleReCaptcha:SecretKey"];
                 using var client = new HttpClient();
 
                 var values = new Dictionary<string, string>

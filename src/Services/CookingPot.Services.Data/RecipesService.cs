@@ -61,27 +61,32 @@
                 .Distinct()
                 .ToArray();
 
-            /** Cloudinary upload image **/
-            byte[] destinationImage;
+            // Cloudinary upload image
+            ImageUploadResult uploadResult = null;
 
-            using var memoryStream = new MemoryStream();
-            await image.CopyToAsync(memoryStream);
-            destinationImage = memoryStream.ToArray();
-
-            using var destinationStream = new MemoryStream(destinationImage);
-
-            var uploadParams = new ImageUploadParams
+            if (image != null)
             {
-                File = new FileDescription(image.FileName, destinationStream),
-            };
+                byte[] destinationImage;
 
-            var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
-            /** Cloudinary upload image **/
+                using var memoryStream = new MemoryStream();
+                await image.CopyToAsync(memoryStream);
+                destinationImage = memoryStream.ToArray();
+
+                using var destinationStream = new MemoryStream(destinationImage);
+
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(image.FileName, destinationStream),
+                };
+
+                uploadResult = await this.cloudinary.UploadAsync(uploadParams);
+            }
+
             Recipe recipe = new Recipe
             {
                 Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(',', ' ', '.', '-', '_'),
                 Description = description,
-                ImageUrl = uploadResult.Uri.AbsoluteUri,
+                ImageUrl = uploadResult != null ? uploadResult.Uri.AbsoluteUri : null,
                 SubcategoryId = subcategoryId,
                 UserId = userId,
             };

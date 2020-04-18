@@ -10,6 +10,18 @@
     <h5>Recipe with id @Model cannot be found</h5>
 </div>
 <br />
-<a href="/Salads/All" class="btn btn-primary">
-    View all salads
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+    Home
+</a>
+<a asp-controller="Salads" asp-action="Subcategories" class="btn btn-primary">
+    Salads
+</a>
+<a asp-controller="Soups" asp-action="Subcategories" class="btn btn-primary">
+    Soups
+</a>
+<a asp-controller="Desserts" asp-action="Subcategories" class="btn btn-primary">
+    Desserts
+</a>
+<a asp-controller="Maincourses" asp-action="Subcategories" class="btn btn-primary">
+    Main Courses
 </a>

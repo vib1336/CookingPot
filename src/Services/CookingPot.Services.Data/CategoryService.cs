@@ -25,5 +25,9 @@
 
         public IEnumerable<T> GetCategories<T>()
             => this.categoriesRepository.All().To<T>().ToList();
+
+        // Test purposes
+        public int GetCountCategories() => this.categoriesRepository.All().Count();
+
     }
 }
