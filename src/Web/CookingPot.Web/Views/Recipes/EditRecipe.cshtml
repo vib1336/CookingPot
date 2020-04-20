@@ -24,6 +24,12 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="TimeToPrepare"></label>
+        <input asp-for="TimeToPrepare" class="form-control" value="@Model.Name" />
+        <span asp-validation-for="TimeToPrepare" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="ProductsForViewModel"></label>
         <textarea asp-for="ProductsForViewModel" class="form-control" rows="10" placeholder="Please, put each product on new line">
             @Model.ProductsForViewModel

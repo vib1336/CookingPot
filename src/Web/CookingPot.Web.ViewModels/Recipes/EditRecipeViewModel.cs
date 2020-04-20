@@ -21,6 +21,10 @@
         [StringLength(RecipeDescriptionMaxLength, MinimumLength = RecipeDescriptionMinLength)]
         public string Description { get; set; }
 
+        [Range(1, 600)]
+        [Display(Name = "Time to prepare (mins)")]
+        public int TimeToPrepare { get; set; }
+
         [Required]
         [StringLength(RecipeProductsMaxLength, MinimumLength = RecipeProductsMinLength)]
         [Display(Name = "Products needed")]

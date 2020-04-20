@@ -30,5 +30,14 @@
                 this.browser.FindElements(By.CssSelector("footer a")),
                 x => x.GetAttribute("href").EndsWith("/Home/Privacy"));
         }
+
+        [Fact]
+        public void AddRecipePageShouldContainH2()
+        {
+            this.browser.Navigate().GoToUrl(this.server.RootUri + "/Recipes/AddRecipe");
+            Assert.Contains(
+                this.browser.FindElements(By.CssSelector("<h2>")),
+                x => x.GetAttribute("class").StartsWith("text-center"));
+        }
     }
 }

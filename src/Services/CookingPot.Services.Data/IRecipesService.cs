@@ -14,9 +14,9 @@
 
         int GetTotalRecipesFromSubcategory(int subcategoryId);
 
-        Task<int> AddRecipeAsync(string name, string description, IFormFile image, string neededProducts, int subcategoryId, string userId);
+        Task<int> AddRecipeAsync(string name, string description, int timeToPrepare, IFormFile image, string neededProducts, int subcategoryId, string userId);
 
-        Task UpdateRecipeAsync(int id, string name, string description, string products); // ?
+        Task UpdateRecipeAsync(int id, string name, string description, int timeToPrepare, string products);
 
         bool RecipeExists(int id);
 

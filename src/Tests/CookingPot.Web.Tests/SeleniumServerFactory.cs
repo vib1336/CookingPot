@@ -3,7 +3,7 @@
     using System;
     using System.Diagnostics;
     using System.Linq;
-
+    using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Hosting.Server.Features;
     using Microsoft.AspNetCore.Mvc.Testing;
@@ -44,6 +44,13 @@
 
             // Fake Server we won't use...this is lame. Should be cleaner, or a utility class
             return new TestServer(new WebHostBuilder().UseStartup<FakeStartup>());
+        }
+
+        protected override IWebHostBuilder CreateWebHostBuilder()
+        {
+            var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
+            builder.UseStartup<TStartup>();
+            return builder;
         }
 
         protected override void Dispose(bool disposing)

@@ -52,7 +52,7 @@
             .Where(r => r.SubcategoryId == subcategoryId && !r.IsDeleted)
             .Count();
 
-        public async Task<int> AddRecipeAsync(string name, string description, IFormFile image, string neededProducts, int subcategoryId, string userId)
+        public async Task<int> AddRecipeAsync(string name, string description, int timeToPrepare, IFormFile image, string neededProducts, int subcategoryId, string userId)
         {
             string[] splittedProducts = neededProducts
                 .Split(new[] { NewLine }, StringSplitOptions.None)
@@ -86,6 +86,7 @@
             {
                 Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(',', ' ', '.', '-', '_'),
                 Description = description,
+                TimeToPrepare = timeToPrepare,
                 ImageUrl = uploadResult != null ? uploadResult.Uri.AbsoluteUri : null,
                 SubcategoryId = subcategoryId,
                 UserId = userId,
@@ -127,13 +128,15 @@
             return recipe.Id;
         }
 
-        public async Task UpdateRecipeAsync(int id, string name, string description, string products)
+        public async Task UpdateRecipeAsync(int id, string name, string description, int timeToPrepare, string products)
         {
             var recipeToEdit = this.recipesRepository.All().Where(r => r.Id == id).FirstOrDefault();
 
             string[] filteredProducts = products
                 .Split(new[] { NewLine }, StringSplitOptions.None)
                 .Where(p => p != string.Empty)
+                .Select(sp => sp.TrimEnd(' ', ',', '.', '-'))
+                .Distinct()
                 .ToArray();
 
             foreach (var pr in filteredProducts)
@@ -171,6 +174,7 @@
 
             recipeToEdit.Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(',', ' ', '.', '-', '_');
             recipeToEdit.Description = description;
+            recipeToEdit.TimeToPrepare = timeToPrepare;
             recipeToEdit.ModifiedOn = DateTime.UtcNow;
 
             await this.recipesRepository.SaveChangesAsync();

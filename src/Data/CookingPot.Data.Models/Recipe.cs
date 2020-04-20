@@ -19,6 +19,8 @@
 
         public string Description { get; set; }
 
+        public int TimeToPrepare { get; set; }
+
         public string ImageUrl { get; set; }
 
         [Required]

@@ -69,7 +69,7 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var recipeId = await this.recipesService.AddRecipeAsync(inputModel.Name, inputModel.Description, inputModel.Image, inputModel.RecipeProducts, inputModel.SubcategoryId, user.Id);
+            var recipeId = await this.recipesService.AddRecipeAsync(inputModel.Name, inputModel.Description, inputModel.TimeToPrepare, inputModel.Image, inputModel.RecipeProducts, inputModel.SubcategoryId, user.Id);
             this.TempData["InfoMessage"] = RecipePosted;
             return this.RedirectToAction(nameof(this.Details), new { id = recipeId });
         }
@@ -123,7 +123,7 @@
             var isRecipeExistent = this.recipesService.RecipeExists(editModel.Id);
             if (!isRecipeExistent)
             {
-                this.BadRequest(); // ?
+                return this.View("EditRecipe", editModel);
             }
 
             if (!this.ModelState.IsValid)
@@ -131,7 +131,7 @@
                 return this.View("EditRecipe", editModel);
             }
 
-            await this.recipesService.UpdateRecipeAsync(editModel.Id, editModel.Name, editModel.Description, editModel.ProductsForViewModel);
+            await this.recipesService.UpdateRecipeAsync(editModel.Id, editModel.Name, editModel.Description, editModel.TimeToPrepare, editModel.ProductsForViewModel);
             this.TempData["InfoMessage"] = RecipeEdited;
             return this.RedirectToAction(nameof(this.Details), new { id = editModel.Id });
         }
