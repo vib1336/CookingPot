@@ -30,6 +30,8 @@
         [Display(Name = "Products needed")]
         public string ProductsForViewModel { get; set; }
 
+        public string UserId { get; set; }
+
         public IEnumerable<ProductViewModel> RecipeProducts { get; set; }
     }
 }

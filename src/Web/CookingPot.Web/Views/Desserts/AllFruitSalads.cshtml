@@ -12,7 +12,7 @@
             <div class="card-body">
                 <h5 class="card-title">@recipe.ShortName</h5>
                 <p class="card-text">@recipe.ShortDescription</p>
-                <a href="/Recipes/Details?id=@recipe.Id" class="btn btn-primary">View recipe</a>
+                <a asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-primary">View recipe</a>
             </div>
         </div>
     }
@@ -21,10 +21,10 @@
 <div>
     @if (!Model.PreviousDisabled)
     {
-        <a href="/Desserts/AllFruitSalads?page=@Model.PreviousPage" class="float-left btn btn-success">Prev</a>
+        <a asp-controller="Desserts" asp-action="AllFruitSalads" asp-route-page="@Model.PreviousPage" class="float-left btn btn-success">Prev</a>
     }
-    @if (!Model.NextDisabled)
+    @if (!Model.NextDisabled && Model.AllFruitSalads.Count() > 0)
     {
-        <a href="/Desserts/AllFruitSalads?page=@Model.NextPage" class="float-right btn btn-success">Next</a>
+        <a asp-controller="Desserts" asp-action="AllFruitSalads" asp-route-page="@Model.NextPage" class="float-right btn btn-success">Next</a>
     }
 </div>

@@ -98,12 +98,18 @@
 
         public IActionResult EditRecipe(int id)
         {
+            var userId = this.userManager.GetUserId(this.User);
             var editRecipeViewModel = this.recipesService.GetRecipe<EditRecipeViewModel>(id);
 
             if (editRecipeViewModel == null)
             {
                 this.Response.StatusCode = 404;
                 return this.View("RecipeNotFound", id);
+            }
+
+            if (userId != editRecipeViewModel.UserId)
+            {
+                return this.RedirectToAction(nameof(this.Details), new { id });
             }
 
             var products = new StringBuilder();
