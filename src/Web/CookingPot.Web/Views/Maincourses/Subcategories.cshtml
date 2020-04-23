@@ -9,7 +9,7 @@
         <div class="card-body">
             <h5 class="card-title">@Model.MeatMainCourses.Name</h5>
             <p class="card-text">@Model.MeatMainCourses.Description</p>
-            <a href="/Maincourses/AllMeatMainCourses" class="btn btn-primary">Show all meat main courses</a>
+            <a asp-controller="Maincourses" asp-action="AllMeatMainCourses" class="btn btn-primary">Show all meat main courses</a>
         </div>
     </div>
     <div class="card" style="width: 18rem;margin: 10px">
@@ -17,7 +17,7 @@
         <div class="card-body">
             <h5 class="card-title">@Model.VegetarianMainCourses.Name</h5>
             <p class="card-text">@Model.VegetarianMainCourses.Description</p>
-            <a href="/Maincourses/AllVegetarianMainCourses" class="btn btn-primary">Show all vegetarian main courses</a>
+            <a asp-controller="Maincourses" asp-action="AllVegetarianMainCourses" class="btn btn-primary">Show all vegetarian main courses</a>
         </div>
     </div>
 </div>
