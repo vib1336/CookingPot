@@ -107,7 +107,7 @@
                 return this.View("RecipeNotFound", id);
             }
 
-            if (userId != editRecipeViewModel.UserId)
+            if (userId != editRecipeViewModel.UserId && !this.User.IsInRole(AdministratorRoleName))
             {
                 return this.RedirectToAction(nameof(this.Details), new { id });
             }

@@ -28,6 +28,5 @@
 
         // Test purposes
         public int GetCountCategories() => this.categoriesRepository.All().Count();
-
     }
 }

@@ -57,7 +57,7 @@
             string[] splittedProducts = neededProducts
                 .Split(new[] { NewLine }, StringSplitOptions.None)
                 .Where(sp => sp != string.Empty)
-                .Select(sp => sp.TrimEnd(' ', ',', '.', '-'))
+                .Select(sp => sp.TrimEnd(' ', ',', '.', '-', '_', '!', '?'))
                 .Distinct()
                 .ToArray();
 
@@ -84,7 +84,7 @@
 
             Recipe recipe = new Recipe
             {
-                Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(',', ' ', '.', '-', '_'),
+                Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(' ', ',', '.', '-', '_', '!', '?'),
                 Description = description,
                 TimeToPrepare = timeToPrepare,
                 ImageUrl = uploadResult != null ? uploadResult.Uri.AbsoluteUri : null,
@@ -135,7 +135,7 @@
             string[] filteredProducts = products
                 .Split(new[] { NewLine }, StringSplitOptions.None)
                 .Where(p => p != string.Empty)
-                .Select(sp => sp.TrimEnd(' ', ',', '.', '-'))
+                .Select(sp => sp.TrimEnd(' ', ',', '.', '-', '_', '!', '?'))
                 .Distinct()
                 .ToArray();
 
@@ -172,7 +172,7 @@
 
             await this.productRecipeRepository.SaveChangesAsync();
 
-            recipeToEdit.Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(',', ' ', '.', '-', '_');
+            recipeToEdit.Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(' ', ',', '.', '-', '_', '!', '?');
             recipeToEdit.Description = description;
             recipeToEdit.TimeToPrepare = timeToPrepare;
             recipeToEdit.ModifiedOn = DateTime.UtcNow;

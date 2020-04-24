@@ -53,7 +53,6 @@
 
             var comment = service.GetComment<CommentReturnInfoModel>(firstId);
             Assert.Equal("Test content", comment.Content);
-
         }
     }
 }
