@@ -10,13 +10,18 @@
     </div>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <br />
+<head>
+    <environment names="Development">
+        <link href="~/css/indexHomePage.css" rel="stylesheet" asp-append-version="true">
+    </environment>
+    <environment names="Staging,Production">
+        <link href="~/css/indexHomePage.css" rel="stylesheet" asp-append-version="true">
+    </environment>
+</head>
+<div class="home-page">
     <h4><i>"In France, cooking is a serious art form and a national sport."</i></h4>
     <p class="float-right"><i>Julia Child</i></p>
-    <br/>
-    <img src="http://res.cloudinary.com/djugrzvgb/image/upload/v1587231622/ewqvfynsvn8lmfskxfhp.jpg" width="600" alt="@GlobalConstants.SystemName"/>
+    
 </div>
 
 @section Scripts{
@@ -24,7 +29,7 @@
         $(document).ready(function () {
             setTimeout(function () {
                 $('#tempData').hide();
-            }, 3000);
+            }, 4000);
         });
     </script>
 }

@@ -4,14 +4,16 @@ using CookingPot.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CookingPot.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200427124557_AddApprovalRecipes")]
+    partial class AddApprovalRecipes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,9 +160,6 @@ namespace CookingPot.Data.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -169,9 +168,6 @@ namespace CookingPot.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RecipeProducts")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SubcategoryId")
@@ -276,7 +272,12 @@ namespace CookingPot.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ApprovalRecipeId")
+                        .HasColumnType("int");
+
                     b.HasKey("RecipeId", "ProductId");
+
+                    b.HasIndex("ApprovalRecipeId");
 
                     b.HasIndex("ProductId");
 
@@ -554,6 +555,10 @@ namespace CookingPot.Data.Migrations
 
             modelBuilder.Entity("CookingPot.Data.Models.ProductRecipe", b =>
                 {
+                    b.HasOne("CookingPot.Data.Models.ApprovalRecipe", null)
+                        .WithMany("RecipeProducts")
+                        .HasForeignKey("ApprovalRecipeId");
+
                     b.HasOne("CookingPot.Data.Models.Product", "Product")
                         .WithMany("ProductRecipes")
                         .HasForeignKey("ProductId")

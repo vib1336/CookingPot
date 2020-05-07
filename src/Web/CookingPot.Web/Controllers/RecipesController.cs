@@ -44,34 +44,34 @@
             this.configuration = configuration;
         }
 
-        public IActionResult AddRecipe()
+        public IActionResult AddApprovalRecipe()
         {
             var categories = this.categoryService.GetCategories<CategoryDisplayModel>();
             var recipeInputModel = new RecipeInputModel();
             recipeInputModel.Categories = categories;
-            return this.View(recipeInputModel);
+            return this.View("AddRecipe", recipeInputModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddRecipe(RecipeInputModel inputModel)
+        public async Task<IActionResult> AddApprovalRecipe(RecipeInputModel inputModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(inputModel);
+                return this.View("AddRecipe", inputModel);
             }
 
             // Recaptcha
             var isCaptchaValid = this.IsCaptchaValid(inputModel.RecaptchaValue);
             if (!isCaptchaValid)
             {
-                return this.View(inputModel);
+                return this.View("AddRecipe", inputModel);
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var recipeId = await this.recipesService.AddRecipeAsync(inputModel.Name, inputModel.Description, inputModel.TimeToPrepare, inputModel.Image, inputModel.RecipeProducts, inputModel.SubcategoryId, user.Id);
-            this.TempData["InfoMessage"] = RecipePosted;
-            return this.RedirectToAction(nameof(this.Details), new { id = recipeId });
+            var approvalRecipeId = await this.recipesService.AddApprovalRecipeAsync(inputModel.Name, inputModel.Description, inputModel.TimeToPrepare, inputModel.Image, inputModel.RecipeProducts, inputModel.SubcategoryId, user.Id);
+            this.TempData["InfoMessage"] = RecipeReview;
+            return this.RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Details(int id)

@@ -16,6 +16,8 @@
 
         public const string RecipeDeleted = "Recipe was successfully deleted!";
 
+        public const string RecipeReview = "Thank you! Your recipe will be reviewed by administrator.";
+
         public const int RecipeDescriptionMaxLength = 1000;
 
         public const int RecipeDescriptionMinLength = 10;

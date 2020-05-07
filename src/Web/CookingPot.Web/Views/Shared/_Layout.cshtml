@@ -46,7 +46,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Maincourses" asp-action="Subcategories">Main courses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Recipes" asp-action="AddRecipe">Add recipe</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Recipes" asp-action="AddApprovalRecipe">Add recipe</a>
                         </li>
                         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
@@ -76,6 +76,10 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a href="https://github.com/vib1336/CookingPot" class="float-right">
+                <i class="fab fa-github"></i>
+                Open Source
+            </a>
         </div>
     </footer>
 

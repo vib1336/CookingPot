@@ -14,7 +14,15 @@
 
         int GetTotalRecipesFromSubcategory(int subcategoryId);
 
-        Task<int> AddRecipeAsync(string name, string description, int timeToPrepare, IFormFile image, string neededProducts, int subcategoryId, string userId);
+        Task<int> AddRecipeAsync(string name, string description, int timeToPrepare, string imageUrl, string neededProducts, int subcategoryId, string userId);
+
+        Task<int> AddApprovalRecipeAsync(string name, string description, int timeToPrepare, IFormFile image, string neededProducts, int subcategoryId, string userId);
+
+        Task<IEnumerable<T>> GetApprovalRecipesAsync<T>(bool isDeleted);
+
+        Task SetIsApprovedRecipe(int id);
+
+        Task<bool> SetIsDeletedApprovalRecipe(int id);
 
         Task UpdateRecipeAsync(int id, string name, string description, int timeToPrepare, string products);
 

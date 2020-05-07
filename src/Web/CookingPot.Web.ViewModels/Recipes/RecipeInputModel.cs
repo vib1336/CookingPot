@@ -12,7 +12,6 @@
     {
         [Required]
         [StringLength(RecipeNameMaxLength, MinimumLength = RecipeNameMinLength)]
-        [Display(Name = "Recipe name")]
         public string Name { get; set; }
 
         public int SubcategoryId { get; set; }
@@ -22,18 +21,16 @@
         public string Description { get; set; }
 
         [Range(1, 600)]
-        [Display(Name = "Time to prepare (mins)")]
         public int TimeToPrepare { get; set; }
 
         public IFormFile Image { get; set; }
 
         [Required]
         [StringLength(RecipeProductsMaxLength, MinimumLength = RecipeProductsMinLength)]
-        [Display(Name = "Products needed")]
         public string RecipeProducts { get; set; }
 
         public string RecaptchaValue { get; set; }
 
-        public IEnumerable<CategoryDisplayModel> Categories { get; set; } // ?
+        public IEnumerable<CategoryDisplayModel> Categories { get; set; }
     }
 }

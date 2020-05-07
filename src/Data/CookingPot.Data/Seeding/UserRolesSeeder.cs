@@ -17,7 +17,7 @@
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
-            var user = await userManager.FindByNameAsync("manstein@abv.bg");
+            var user = await userManager.FindByNameAsync("valentin");
             var role = await roleManager.FindByNameAsync(AdministratorRoleName);
 
             if (user == null)

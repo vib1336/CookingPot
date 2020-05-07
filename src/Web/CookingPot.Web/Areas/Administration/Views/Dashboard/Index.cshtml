@@ -5,6 +5,86 @@
 }
 
 <h1>@this.ViewData["Title"]</h1>
-Settings: @this.Model.SettingsCount
 
-<h3>Hello from admin area!</h3>
+<form asp-area="Administration" asp-controller="Dashboard" asp-action="GetApprovalRecipes" method="post">
+    <div class="form-group d-none">
+        <input name="IsDeleted" class="form-control" value="false" readonly />
+    </div>
+    <input type="submit" class="btn btn-primary float-right" value="Get Approval recipes">
+</form>
+<br />
+
+@if (Model.ApprovalRecipes.Any())
+{
+    foreach (var approvalRecipe in Model.ApprovalRecipes)
+    {
+         
+        var formId = Guid.NewGuid().ToString();
+        var deleteButtonId = Guid.NewGuid().ToString();
+        
+        <form id="@formId" asp-controller="Dashboard" asp-action="AddRecipe" method="post">
+
+            <div class="form-group">
+                <label>Recipe Id</label>
+                <input name="ApprovalRecipeId" type="number" class="form-control" value="@approvalRecipe.Id"/>
+            </div>
+            <div class="form-group">
+                <label>Recipe name</label>
+                <input name="Name" class="form-control" value="@approvalRecipe.Name"/>
+            </div>
+            <div class="form-group">
+                <label>Subcategory name and Id</label>
+                <input name="SubcategoryId" class="form-control" value="@approvalRecipe.SubcategoryId-@approvalRecipe.SubcategoryName">
+            </div>
+            <div class="form-group">
+                <label>User Id</label>
+                <input name="UserId" class="form-control" value="@approvalRecipe.UserId">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="Description" class="form-control" rows="10" placeholder="How to prepare">@approvalRecipe.Description</textarea>
+            </div>
+            <div class="form-group">
+                <label>Time to prepare (mins)</label>
+                <input type="number" name="TimeToPrepare" class="form-control" value="@approvalRecipe.TimeToPrepare" />
+            </div>
+            <div class="form-group">
+                <label>Recipe Products</label>
+                <textarea name="RecipeProducts" class="form-control" rows="10" placeholder="Please put each product on new line">@approvalRecipe.RecipeProducts</textarea>
+            </div>
+            <div class="form-group">
+                <label>Image URL</label>
+                <input name="ImageUrl" class="form-control" value="@approvalRecipe.ImageUrl" />
+            </div>
+            <input type="submit" value="Approve" class="btn btn-success" />
+        </form>
+        <br />
+        <a href="#" id="@deleteButtonId" class="btn btn-danger" onclick="deleteApprovalRecipe(@approvalRecipe.Id, '@formId', '@deleteButtonId')">Delete</a>
+        <hr />
+    }
+
+}
+
+@section Scripts{ 
+    <script>
+        function deleteApprovalRecipe(approvalRecipeId, formId, deleteButtonId) {
+            var token = $(`#${formId} input[name=__RequestVerificationToken]`).val();
+            var json = { approvalRecipeId: approvalRecipeId };
+            $(`#${formId}`).remove();
+            $(`#${deleteButtonId}`).remove();
+
+            $.ajax({
+                url: "/api/deleteapprovalrecipes",
+                method: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    console.log(data);
+                }
+                    
+            });
+        }
+    </script>
+}

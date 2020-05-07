@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
@@ -12,6 +13,7 @@
     using CookingPot.Data.Models;
     using CookingPot.Services.Mapping;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
 
     using static CookingPot.Common.GlobalConstants;
 
@@ -21,17 +23,20 @@
         private readonly IRepository<ProductRecipe> productRecipeRepository;
         private readonly IRepository<Product> productsRepository;
         private readonly Cloudinary cloudinary;
+        private readonly IDeletableEntityRepository<ApprovalRecipe> approvalRecipesRepository;
 
         public RecipesService(
             IDeletableEntityRepository<Recipe> recipesRepository,
             IRepository<ProductRecipe> productRecipeRepository,
             IRepository<Product> productsRepository,
-            Cloudinary cloudinary)
+            Cloudinary cloudinary,
+            IDeletableEntityRepository<ApprovalRecipe> approvalRecipesRepository)
         {
             this.recipesRepository = recipesRepository;
             this.productRecipeRepository = productRecipeRepository;
             this.productsRepository = productsRepository;
             this.cloudinary = cloudinary;
+            this.approvalRecipesRepository = approvalRecipesRepository;
         }
 
         public IEnumerable<T> GetRecipes<T>(int subcategoryId, int page)
@@ -52,7 +57,7 @@
             .Where(r => r.SubcategoryId == subcategoryId && !r.IsDeleted)
             .Count();
 
-        public async Task<int> AddRecipeAsync(string name, string description, int timeToPrepare, IFormFile image, string neededProducts, int subcategoryId, string userId)
+        public async Task<int> AddRecipeAsync(string name, string description, int timeToPrepare, string imageUrl, string neededProducts, int subcategoryId, string userId)
         {
             string[] splittedProducts = neededProducts
                 .Split(new[] { NewLine }, StringSplitOptions.None)
@@ -61,33 +66,12 @@
                 .Distinct()
                 .ToArray();
 
-            // Cloudinary upload image
-            ImageUploadResult uploadResult = null;
-
-            if (image != null)
-            {
-                byte[] destinationImage;
-
-                using var memoryStream = new MemoryStream();
-                await image.CopyToAsync(memoryStream);
-                destinationImage = memoryStream.ToArray();
-
-                using var destinationStream = new MemoryStream(destinationImage);
-
-                var uploadParams = new ImageUploadParams
-                {
-                    File = new FileDescription(image.FileName, destinationStream),
-                };
-
-                uploadResult = await this.cloudinary.UploadAsync(uploadParams);
-            }
-
             Recipe recipe = new Recipe
             {
                 Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(' ', ',', '.', '-', '_', '!', '?'),
                 Description = description,
                 TimeToPrepare = timeToPrepare,
-                ImageUrl = uploadResult != null ? uploadResult.Uri.AbsoluteUri : null,
+                ImageUrl = imageUrl,
                 SubcategoryId = subcategoryId,
                 UserId = userId,
             };
@@ -189,6 +173,86 @@
             recipe.IsDeleted = true;
             recipe.DeletedOn = DateTime.UtcNow;
             this.recipesRepository.SaveChangesAsync().GetAwaiter().GetResult();
+        }
+
+        public async Task<int> AddApprovalRecipeAsync(string name, string description, int timeToPrepare, IFormFile image, string neededProducts, int subcategoryId, string userId)
+        {
+            string[] splittedProducts = neededProducts
+                .Split(new[] { NewLine }, StringSplitOptions.None)
+                .Where(sp => sp != string.Empty)
+                .Select(sp => sp.TrimEnd(' ', ',', '.', '-', '_', '!', '?'))
+                .Distinct()
+                .ToArray();
+
+            // Cloudinary upload image
+            ImageUploadResult uploadResult = null;
+
+            if (image != null)
+            {
+                byte[] destinationImage;
+
+                using var memoryStream = new MemoryStream();
+                await image.CopyToAsync(memoryStream);
+                destinationImage = memoryStream.ToArray();
+
+                using var destinationStream = new MemoryStream(destinationImage);
+
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(image.FileName, destinationStream),
+                };
+
+                uploadResult = await this.cloudinary.UploadAsync(uploadParams);
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var pr in splittedProducts)
+            {
+                sb.AppendLine(pr);
+            }
+
+            ApprovalRecipe approvalRecipe = new ApprovalRecipe
+            {
+                Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(' ', ',', '.', '-', '_', '!', '?'),
+                Description = description,
+                TimeToPrepare = timeToPrepare,
+                RecipeProducts = sb.ToString(),
+                ImageUrl = uploadResult != null ? uploadResult.Uri.AbsoluteUri : null,
+                SubcategoryId = subcategoryId,
+                UserId = userId,
+            };
+
+            await this.approvalRecipesRepository.AddAsync(approvalRecipe);
+            await this.approvalRecipesRepository.SaveChangesAsync();
+
+            return approvalRecipe.Id;
+        }
+
+        public async Task<IEnumerable<T>> GetApprovalRecipesAsync<T>(bool isDeleted)
+            => await this.approvalRecipesRepository.All()
+            .Where(ar => ar.IsDeleted == isDeleted && !ar.IsApproved).To<T>().ToListAsync();
+
+        public async Task SetIsApprovedRecipe(int id)
+        {
+            ApprovalRecipe approvalRecipe = this.approvalRecipesRepository.All()
+                .Where(ar => ar.Id == id)
+                .FirstOrDefault();
+
+            approvalRecipe.IsApproved = true;
+            await this.approvalRecipesRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> SetIsDeletedApprovalRecipe(int id)
+        {
+            ApprovalRecipe approvalRecipe = this.approvalRecipesRepository.All()
+                .Where(ar => ar.Id == id).FirstOrDefault();
+
+            approvalRecipe.IsDeleted = true;
+            approvalRecipe.DeletedOn = DateTime.UtcNow;
+            await this.approvalRecipesRepository.SaveChangesAsync();
+
+            return true;
         }
     }
 }
