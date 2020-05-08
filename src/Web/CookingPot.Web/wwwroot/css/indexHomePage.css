@@ -1,5 +1,5 @@
 ﻿.home-page {
-    background-image: url("/img/homepage.jpg");
+    background-image: url("/img/cooking.jpg");
     padding: 0;
     margin: 0;
     background-position: 50%;
@@ -7,8 +7,23 @@
     min-height: 100vh;
     max-height: 999px;
     overflow: hidden;
-    width: auto;
+    width: 100%;
     z-index: 1;
     box-sizing: border-box;
     display: block;
+}
+.heading-homepage {
+    margin-top: 230px;
+    margin-left: 140px;
+    font-weight:700;
+    font-style:italic;
+}
+.heading-caption {
+    color: #966841;
+}
+.heading-author{
+    margin-right:260px;
+    font-weight:600;
+    font-style:italic;
+    font-size:large;
 }
