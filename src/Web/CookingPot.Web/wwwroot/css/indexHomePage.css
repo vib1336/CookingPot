@@ -1,5 +1,5 @@
 ﻿.home-page {
-    background-image: url("/img/cooking.jpg");
+    background-image: url(../img/homepage_cooking.jpg);
     padding: 0;
     margin: 0;
     background-position: 50%;
@@ -12,18 +12,73 @@
     box-sizing: border-box;
     display: block;
 }
+
 .heading-homepage {
     margin-top: 230px;
     margin-left: 140px;
-    font-weight:700;
-    font-style:italic;
+    font-weight: 700;
+    font-style: italic;
 }
+
 .heading-caption {
     color: #966841;
 }
-.heading-author{
-    margin-right:260px;
-    font-weight:600;
-    font-style:italic;
-    font-size:large;
+
+.heading-author {
+    margin-right: 260px;
+    font-weight: 600;
+    font-style: italic;
+    font-size: large;
+}
+
+.identity-form {
+    color: #5891c9;
+    font-weight: 700;
+}
+
+.identity-button {
+    background-color: #5891c9;
+    border: none;
+    color: white;
+    padding: 8px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 7px 0px;
+    opacity: 0.8;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.identity-button:hover {
+    opacity: 1
+}
+
+/* Login & Register */
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.icon {
+    padding: 10px;
+    background: #5891c9;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+.register-login-title {
+    color: #5891c9;
+    font-weight: 700;
+    font-size: 30px;
 }

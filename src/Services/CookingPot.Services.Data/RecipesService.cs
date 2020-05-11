@@ -222,7 +222,6 @@
                 SubcategoryId = subcategoryId,
                 UserId = userId,
             };
-
             await this.approvalRecipesRepository.AddAsync(approvalRecipe);
             await this.approvalRecipesRepository.SaveChangesAsync();
 

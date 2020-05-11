@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@recipe.ShortName</h5>
                     <p class="card-text">@recipe.ShortDescription</p>
-                    <a href="/Recipes/Details?id=@recipe.Id" class="btn btn-primary">View recipe</a>
+                    <a asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-primary">View recipe</a>
                 </div>
             </div>
         }

@@ -18,21 +18,21 @@
 
         public IActionResult SearchRecipe(string searchValue)
         {
-            var vm = new SearchInputModel();
-            vm.FoundRecipes = new List<DisplaySearchRecipeViewModel>();
+            var viewModel = new SearchInputModel();
+            viewModel.FoundRecipes = new List<DisplaySearchRecipeViewModel>();
 
             if (!string.IsNullOrWhiteSpace(searchValue))
             {
-                vm.FoundRecipes = this.searchService.Search<DisplaySearchRecipeViewModel>(searchValue);
-                if (vm.FoundRecipes.Count() == 0)
+                viewModel.FoundRecipes = this.searchService.Search<DisplaySearchRecipeViewModel>(searchValue);
+                if (viewModel.FoundRecipes.Count() == 0)
                 {
                     this.TempData["InfoMessage"] = NoResultsFound;
                 }
 
-                return this.View(vm);
+                return this.View(viewModel);
             }
 
-            return this.View(vm);
+            return this.View(viewModel);
         }
     }
 }
