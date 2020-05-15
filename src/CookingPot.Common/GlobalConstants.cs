@@ -18,6 +18,10 @@
 
         public const string RecipeReview = "Thank you! Your recipe will be reviewed by administrator.";
 
+        public const string FiveMinuteRule = "You have to wait 5 minutes before posting a new recipe.";
+
+        public const int FiveMinutesInSeconds = 300;
+
         public const int RecipeDescriptionMaxLength = 1000;
 
         public const int RecipeDescriptionMinLength = 10;

@@ -253,5 +253,11 @@
 
             return true;
         }
+
+        public async Task<T> GetUserLastApprovalRecipeAsync<T>(string userId)
+            => await this.approvalRecipesRepository.All()
+            .Where(ar => ar.UserId == userId)
+            .To<T>()
+            .FirstOrDefaultAsync();
     }
 }

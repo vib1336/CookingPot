@@ -8,6 +8,7 @@
 
     using CookingPot.Data.Models;
     using CookingPot.Services.Data;
+    using CookingPot.Web.ViewModels.ApprovalRecipes;
     using CookingPot.Web.ViewModels.Categories;
     using CookingPot.Web.ViewModels.Recipes;
     using Microsoft.AspNetCore.Authorization;
@@ -55,19 +56,27 @@
         [HttpPost]
         public async Task<IActionResult> AddApprovalRecipe(RecipeInputModel inputModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View("AddRecipe", inputModel);
-            }
-
             // Recaptcha
             var isCaptchaValid = this.IsCaptchaValid(inputModel.RecaptchaValue);
-            if (!isCaptchaValid)
+            if (!this.ModelState.IsValid || !isCaptchaValid)
             {
                 return this.View("AddRecipe", inputModel);
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
+
+            var userLastApprovalRecipe = await this.recipesService.GetUserLastApprovalRecipeAsync<GetLastApprovalRecipeModel>(user.Id);
+
+            // 5 minute rule
+            if (userLastApprovalRecipe != null)
+            {
+                if ((DateTime.UtcNow.TimeOfDay.TotalSeconds -
+                    userLastApprovalRecipe.CreatedOn.TimeOfDay.TotalSeconds) < FiveMinutesInSeconds)
+                {
+                    this.TempData["InfoMessage"] = FiveMinuteRule;
+                    return this.RedirectToAction("Index", "Home");
+                }
+            }
 
             var approvalRecipeId = await this.recipesService.AddApprovalRecipeAsync(inputModel.Name, inputModel.Description, inputModel.TimeToPrepare, inputModel.Image, inputModel.RecipeProducts, inputModel.SubcategoryId, user.Id);
             this.TempData["InfoMessage"] = RecipeReview;

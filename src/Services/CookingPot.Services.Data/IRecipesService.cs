@@ -24,6 +24,8 @@
 
         Task<bool> SetIsDeletedApprovalRecipe(int id);
 
+        Task<T> GetUserLastApprovalRecipeAsync<T>(string userId);
+
         Task UpdateRecipeAsync(int id, string name, string description, int timeToPrepare, string products);
 
         bool RecipeExists(int id);
