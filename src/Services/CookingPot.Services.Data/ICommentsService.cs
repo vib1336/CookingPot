@@ -10,5 +10,7 @@
         T GetComment<T>(int id);
 
         IEnumerable<T> GetRecipeComments<T>(int id);
+
+        Task<bool> DeleteCommentAsync(int id);
     }
 }

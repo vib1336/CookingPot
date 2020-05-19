@@ -8,7 +8,6 @@
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/[controller]")]
     public class CommentsController : ControllerBase
     {
         private readonly ICommentsService commentsService;
@@ -18,6 +17,7 @@
 
         [HttpPost]
         [Authorize]
+        [Route("Comments/Comment")]
         public async Task<ActionResult<CommentReturnInfoModel>> Comment(CommentInputModel inputModel)
         {
             var commentId = await this.commentsService.AddCommentAsync(inputModel.RecipeId, inputModel.CurrentUserId, inputModel.Comment);
@@ -25,6 +25,16 @@
             var commentReturnModel = this.commentsService.GetComment<CommentReturnInfoModel>(commentId);
 
             return commentReturnModel;
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("Comments/DeleteComment")]
+        public async Task<ActionResult<DeleteCommentReturnModel>> DeleteComment(DeleteCommentInputModel inputModel)
+        {
+            var isCommentDeleted = await this.commentsService.DeleteCommentAsync(inputModel.CommentId);
+
+            return new DeleteCommentReturnModel { IsCommentDeleted = isCommentDeleted };
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace CookingPot.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -39,5 +40,16 @@
         // Test purposes
         public int GetRecipeCountComments(int recipeId)
             => this.commentsRepository.All().Where(c => c.RecipeId == recipeId).Count();
+
+        public async Task<bool> DeleteCommentAsync(int id)
+        {
+            var comment = this.commentsRepository.All().FirstOrDefault(c => c.Id == id);
+
+            comment.IsDeleted = true;
+            comment.DeletedOn = DateTime.UtcNow;
+            await this.commentsRepository.SaveChangesAsync();
+
+            return comment.IsDeleted;
+        }
     }
 }
