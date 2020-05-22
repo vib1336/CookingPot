@@ -28,5 +28,22 @@
                 return this.CurrentPage == maxPage;
             }
         }
+
+        public bool InvalidPage
+        {
+            get
+            {
+                double maxPage = Math.Ceiling(((double)this.Total) / RecipesPerPage);
+
+                bool isInvalid = false;
+
+                if (this.CurrentPage > maxPage)
+                {
+                    isInvalid = true;
+                }
+
+                return isInvalid;
+            }
+        }
     }
 }
