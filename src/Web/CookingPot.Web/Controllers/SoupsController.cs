@@ -1,5 +1,7 @@
 ﻿namespace CookingPot.Web.Controllers
 {
+    using System;
+
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Soups;
     using Microsoft.AspNetCore.Authorization;
@@ -34,6 +36,18 @@
         {
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(MeatSoups);
 
+            int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
+            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            if (maxPage == 0)
+            {
+                return this.View("EmptySubcategory");
+            }
+
+            if (page > maxPage)
+            {
+                return this.View("InvalidPage");
+            }
+
             var allMeatSoups = new AllMeatSoupsViewModel
             {
                 AllMeatSoups = this.recipesService.GetRecipes<MeatSoupsViewModel>(subcategoryId, page),
@@ -48,6 +62,18 @@
         public IActionResult AllVegetarianSoups(int page = 1)
         {
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(VegetarianSoups);
+
+            int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
+            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            if (maxPage == 0)
+            {
+                return this.View("EmptySubcategory");
+            }
+
+            if (page > maxPage)
+            {
+                return this.View("InvalidPage");
+            }
 
             var allVegetarianSoups = new AllVegetarianSoupsViewModel
             {

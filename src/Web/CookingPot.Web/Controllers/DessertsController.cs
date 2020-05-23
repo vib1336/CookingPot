@@ -1,5 +1,7 @@
 ﻿namespace CookingPot.Web.Controllers
 {
+    using System;
+
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.Desserts;
     using Microsoft.AspNetCore.Authorization;
@@ -34,6 +36,18 @@
         {
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(Cakes);
 
+            int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
+            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            if (maxPage == 0)
+            {
+                return this.View("EmptySubcategory");
+            }
+
+            if (page > maxPage)
+            {
+                return this.View("InvalidPage");
+            }
+
             var allCakes = new AllCakesViewModel
             {
                 AllCakes = this.recipesService.GetRecipes<CakesViewModel>(subcategoryId, page),
@@ -48,6 +62,18 @@
         public IActionResult AllFruitSalads(int page = 1)
         {
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(FruitSalads);
+
+            int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
+            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            if (maxPage == 0)
+            {
+                return this.View("EmptySubcategory");
+            }
+
+            if (page > maxPage)
+            {
+                return this.View("InvalidPage");
+            }
 
             var allFruitSalads = new AllFruitSaladsViewModel
             {

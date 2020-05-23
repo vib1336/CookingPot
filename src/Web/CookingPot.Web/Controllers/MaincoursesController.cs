@@ -1,5 +1,7 @@
 ﻿namespace CookingPot.Web.Controllers
 {
+    using System;
+
     using CookingPot.Services.Data;
     using CookingPot.Web.ViewModels.MainCourses;
     using Microsoft.AspNetCore.Authorization;
@@ -33,6 +35,18 @@
         {
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(MeatMainCourses);
 
+            int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
+            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            if (maxPage == 0)
+            {
+                return this.View("EmptySubcategory");
+            }
+
+            if (page > maxPage)
+            {
+                return this.View("InvalidPage");
+            }
+
             var allMeatMainCourses = new AllMeatMainCoursesViewModel
             {
                 AllMeatMainCourses = this.recipesService.GetRecipes<MeatMainCoursesViewModel>(subcategoryId, page),
@@ -47,6 +61,18 @@
         public IActionResult AllVegetarianMainCourses(int page = 1)
         {
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(VegetarianMainCourses);
+
+            int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
+            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            if (maxPage == 0)
+            {
+                return this.View("EmptySubcategory");
+            }
+
+            if (page > maxPage)
+            {
+                return this.View("InvalidPage");
+            }
 
             var allVegetarianMainCourses = new AllVegetarianMainCoursesViewModel
             {

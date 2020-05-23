@@ -3,46 +3,29 @@
 @{
     this.ViewData["Title"] = "All salads";
 }
-@if (!Model.InvalidPage)
-{
-    @if (Model.AllSalads.Count() == 0)
+
+<div class="row">
+    @foreach (var recipe in Model.AllSalads)
     {
-        <div class="center">
-            <h4>Subcategory is empty</h4>
+        <div class="card" style="width: 18rem;margin: 10px">
+            <img class="card-img-top" height="200" width="100" src="@recipe.ImageUrl" alt="@recipe.Name">
+            <div class="card-body">
+                <h5 class="card-title">@recipe.ShortName</h5>
+                <p class="card-text">@recipe.ShortDescription</p>
+                <a asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-primary">View recipe</a>
+            </div>
         </div>
     }
-    else
+
+</div>
+
+<div>
+    @if (!Model.PreviousDisabled)
     {
-        <div class="row">
-            @foreach (var recipe in Model.AllSalads)
-            {
-                <div class="card" style="width: 18rem;margin: 10px">
-                    <img class="card-img-top" height="200" width="100" src="@recipe.ImageUrl" alt="@recipe.Name">
-                    <div class="card-body">
-                        <h5 class="card-title">@recipe.ShortName</h5>
-                        <p class="card-text">@recipe.ShortDescription</p>
-                        <a asp-controller="Recipes" asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-primary">View recipe</a>
-                    </div>
-                </div>
-            }
-
-        </div>
-
-        <div>
-            @if (!Model.PreviousDisabled)
-            {
-                <a asp-controller="Salads" asp-action="All" asp-route-page="@Model.PreviousPage" class="float-left btn btn-success">Prev</a>
-            }
-            @if (!Model.NextDisabled && Model.AllSalads.Count() > 0)
-            {
-                <a asp-controller="Salads" asp-action="All" asp-route-page="@Model.NextPage" class="float-right btn btn-success">Next</a>
-            }
-        </div>
+        <a asp-controller="Salads" asp-action="All" asp-route-page="@Model.PreviousPage" class="float-left btn btn-success">Prev</a>
     }
-}
-else
-{
-    <div class="center">
-        <h4>Invalid page</h4>
-    </div>
-}
+    @if (!Model.NextDisabled && Model.AllSalads.Count() > 0)
+    {
+        <a asp-controller="Salads" asp-action="All" asp-route-page="@Model.NextPage" class="float-right btn btn-success">Next</a>
+    }
+</div>
