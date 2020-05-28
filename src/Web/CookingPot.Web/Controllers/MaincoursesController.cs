@@ -44,6 +44,7 @@
 
             if (page > maxPage)
             {
+                this.Response.StatusCode = 404;
                 return this.View("InvalidPage");
             }
 
@@ -71,6 +72,7 @@
 
             if (page > maxPage)
             {
+                this.Response.StatusCode = 404;
                 return this.View("InvalidPage");
             }
 

@@ -2,6 +2,33 @@
     this.ViewData["Title"] = "Invalid page";
 }
 
-<div class="center">
-    <h4>Invalid page</h4>
+<head>
+    <environment names="Development">
+        <link href="~/css/notfound.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <environment names="Staging,Production">
+        <link href="~/css/notfound.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+</head>
+
+<div class="error-code">
+    <h1>404 Error</h1>
+    <h3>The page you requested could not be found.</h3>
+</div>
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+    Go to Home page
+</a>
+<a asp-controller="Salads" asp-action="Subcategories" class="btn btn-primary">
+    View Salads
+</a>
+<a asp-controller="Soups" asp-action="Subcategories" class="btn btn-primary">
+    View Soups
+</a>
+<a asp-controller="Desserts" asp-action="Subcategories" class="btn btn-primary">
+    View Desserts
+</a>
+<a asp-controller="Maincourses" asp-action="Subcategories" class="btn btn-primary">
+    View Main Courses
+</a>
+<div class="page-not-found">
 </div>

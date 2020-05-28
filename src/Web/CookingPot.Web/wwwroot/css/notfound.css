@@ -1,0 +1,18 @@
+﻿.page-not-found {
+    background-image: url(../img/page_not_found.jpg);
+    padding: 0;
+    margin: 5px 0px;
+    background-position: 50%;
+    background-size: cover;
+    min-height: 125vh;
+    max-height: 999px;
+    overflow: hidden;
+    width: 100%;
+    z-index: 1;
+    box-sizing: border-box;
+    display: block;
+}
+
+.error-code{
+    color:red;
+}
