@@ -24,19 +24,22 @@
         private readonly IRepository<Product> productsRepository;
         private readonly Cloudinary cloudinary;
         private readonly IDeletableEntityRepository<ApprovalRecipe> approvalRecipesRepository;
+        private readonly IRepository<ViewCount> viewCountRepository;
 
         public RecipesService(
             IDeletableEntityRepository<Recipe> recipesRepository,
             IRepository<ProductRecipe> productRecipeRepository,
             IRepository<Product> productsRepository,
             Cloudinary cloudinary,
-            IDeletableEntityRepository<ApprovalRecipe> approvalRecipesRepository)
+            IDeletableEntityRepository<ApprovalRecipe> approvalRecipesRepository,
+            IRepository<ViewCount> viewCountRepository)
         {
             this.recipesRepository = recipesRepository;
             this.productRecipeRepository = productRecipeRepository;
             this.productsRepository = productsRepository;
             this.cloudinary = cloudinary;
             this.approvalRecipesRepository = approvalRecipesRepository;
+            this.viewCountRepository = viewCountRepository;
         }
 
         public IEnumerable<T> GetRecipes<T>(int subcategoryId, int page)
@@ -259,5 +262,23 @@
             .Where(ar => ar.UserId == userId)
             .To<T>()
             .FirstOrDefaultAsync();
+
+        public int GetRecipeViewCounts(int id)
+            => this.viewCountRepository.All().Where(vc => vc.RecipeId == id).Count();
+
+        public bool CheckIfUserVisitedRecipe(string userId, int recipeId)
+            => this.viewCountRepository.All().Where(vc => vc.UserId == userId && vc.RecipeId == recipeId).Any();
+
+        public void AddUserRecipeView(string userId, int recipeId)
+        {
+            ViewCount viewCount = new ViewCount
+            {
+                UserId = userId,
+                RecipeId = recipeId,
+            };
+
+            this.viewCountRepository.AddAsync(viewCount).GetAwaiter().GetResult();
+            this.viewCountRepository.SaveChangesAsync().GetAwaiter().GetResult();
+        }
     }
 }

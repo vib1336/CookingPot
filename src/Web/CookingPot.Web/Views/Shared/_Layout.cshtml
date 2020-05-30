@@ -1,6 +1,4 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
-@inject Microsoft.AspNetCore.Identity.SignInManager<ApplicationUser> SignInManager
-@using CookingPot.Data.Models
 @using CookingPot.Common
 <!DOCTYPE html>
 <html>
@@ -31,7 +29,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    @if (SignInManager.IsSignedIn(this.User))
+                    @if (this.User.Identity.IsAuthenticated)
                      {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">

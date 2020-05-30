@@ -31,5 +31,11 @@
         bool RecipeExists(int id);
 
         void DeleteRecipe(int id);
+
+        int GetRecipeViewCounts(int id);
+
+        bool CheckIfUserVisitedRecipe(string userId, int recipeId);
+
+        void AddUserRecipeView(string userId, int recipeId);
     }
 }

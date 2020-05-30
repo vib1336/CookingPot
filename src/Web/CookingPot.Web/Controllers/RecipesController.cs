@@ -96,6 +96,14 @@
                 return this.View("RecipeNotFound", id);
             }
 
+            detailsRecipeViewModel.ViewsCount = this.recipesService.GetRecipeViewCounts(id);
+            var hasUserVisitedRecipe = this.recipesService.CheckIfUserVisitedRecipe(user.Id, id);
+            if (!hasUserVisitedRecipe)
+            {
+                this.recipesService.AddUserRecipeView(user.Id, id);
+                detailsRecipeViewModel.ViewsCount++;
+            }
+
             detailsRecipeViewModel.CurrentUserName = user.UserName;
             detailsRecipeViewModel.CurrentUserId = user.Id;
             detailsRecipeViewModel.IsUserInRole = isInRole;

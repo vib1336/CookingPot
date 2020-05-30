@@ -46,6 +46,8 @@
 
         public int NegativeVotes { get; set; }
 
+        public int ViewsCount { get; set; } // ?
+
         public IEnumerable<ProductViewModel> RecipeProducts { get; set; }
 
         public IEnumerable<CommentViewModel> RecipeComments { get; set; }

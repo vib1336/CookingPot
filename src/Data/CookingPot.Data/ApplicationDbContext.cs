@@ -42,6 +42,8 @@
 
         public DbSet<ApprovalRecipe> ApprovalRecipes { get; set; }
 
+        public DbSet<ViewCount> ViewCounts { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
