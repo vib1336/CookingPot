@@ -29,7 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\CookingPot.Data\CookingPot.Data.csproj" />
     <ProjectReference Include="..\..\Services\CookingPot.Services.Data\CookingPot.Services.Data.csproj" />
-    <ProjectReference Include="..\..\Web\CookingPot.Web.ViewModels\CookingPot.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

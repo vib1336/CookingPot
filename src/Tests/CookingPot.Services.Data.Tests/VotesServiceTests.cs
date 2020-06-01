@@ -1,5 +1,6 @@
 ﻿namespace CookingPot.Services.Data.Tests
 {
+    using System;
     using System.Threading.Tasks;
 
     using CookingPot.Data;
@@ -13,7 +14,8 @@
         [Fact]
         public async Task VotesServiceCountsVotesCorrectly()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("CookingPot");
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var votesRepository = new EfRepository<Vote>(new ApplicationDbContext(options.Options));
 
             var service = new VotesService(votesRepository);

@@ -1,26 +1,18 @@
 ﻿namespace CookingPot.Services.Data.Tests
 {
     using System;
-    using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
 
     using CookingPot.Data;
     using CookingPot.Data.Models;
     using CookingPot.Data.Repositories;
+    using CookingPot.Services.Data.Tests.TestViewModels;
     using CookingPot.Services.Mapping;
-    using CookingPot.Web.ViewModels;
-    using CookingPot.Web.ViewModels.Comments;
     using Microsoft.EntityFrameworkCore;
     using Xunit;
 
     public class CommentsServiceTests
     {
-        public CommentsServiceTests()
-        {
-            AutoMapperConfig.RegisterMappings(typeof(CommentReturnInfoModel).GetTypeInfo().Assembly);
-        }
-
         [Fact]
         public async Task TestIfServiceAddComment()
         {
@@ -41,7 +33,8 @@
         [Fact]
         public async Task TestIfServiceReturnComment()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
             var context = new ApplicationDbContext(options.Options);
             var commentsRepository = new EfDeletableEntityRepository<Comment>(context);
 
@@ -51,8 +44,14 @@
             var secondId = await service.AddCommentAsync(1, "1", "Test content 2");
             var thirdId = await service.AddCommentAsync(1, "1", "Test content 3");
 
-            var comment = service.GetComment<CommentReturnInfoModel>(firstId);
-            Assert.Equal("Test content", comment.Content);
+            AutoMapperConfig.RegisterMappings(this.GetType().Assembly);
+
+            var firstComment = service.GetComment<TestCommentModel>(firstId);
+            var secondComment = service.GetComment<TestCommentModel>(secondId);
+            var thirdComment = service.GetComment<TestCommentModel>(thirdId);
+            Assert.Equal("Test content", firstComment.Content);
+            Assert.Equal("Test content 2", secondComment.Content);
+            Assert.Equal("Test content 3", thirdComment.Content);
         }
     }
 }
