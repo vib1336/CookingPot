@@ -17,6 +17,7 @@
         <a asp-controller="Recipes" asp-action="AreYouSureDelete" asp-route-id="@Model.Id" class="btn btn-danger float-right">Delete</a>
         <br />
     }
+    <span><i class="fas fa-comment"></i> @Model.RecipeComments.Count() |</span>
     <span><i class="fas fa-eye"></i> @Model.ViewsCount |</span>
     <span><i class="fas fa-calendar"></i> <time datetime="@Model.CreatedOn.ToString("O")"></time> <em>(@Model.DaysCounter.Days days ago)</em> | <i class="fas fa-user"></i> @Model.ShortUsername</span>
     @if (Model.ModifiedOn.HasValue)
