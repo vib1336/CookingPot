@@ -46,7 +46,9 @@
 
         public int NegativeVotes { get; set; }
 
-        public int ViewsCount { get; set; } // ?
+        public int ViewsCount { get; set; }
+
+        public TimeSpan DaysCounter => DateTime.UtcNow - this.CreatedOn;
 
         public IEnumerable<ProductViewModel> RecipeProducts { get; set; }
 

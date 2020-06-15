@@ -36,6 +36,6 @@
 
         bool CheckIfUserVisitedRecipe(string userId, int recipeId);
 
-        void AddUserRecipeView(string userId, int recipeId);
+        Task AddUserRecipeView(string userId, int recipeId);
     }
 }

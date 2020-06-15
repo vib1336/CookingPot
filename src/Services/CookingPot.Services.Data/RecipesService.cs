@@ -269,7 +269,7 @@
         public bool CheckIfUserVisitedRecipe(string userId, int recipeId)
             => this.viewCountRepository.All().Where(vc => vc.UserId == userId && vc.RecipeId == recipeId).Any();
 
-        public void AddUserRecipeView(string userId, int recipeId)
+        public async Task AddUserRecipeView(string userId, int recipeId)
         {
             ViewCount viewCount = new ViewCount
             {
@@ -277,8 +277,8 @@
                 RecipeId = recipeId,
             };
 
-            this.viewCountRepository.AddAsync(viewCount).GetAwaiter().GetResult();
-            this.viewCountRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await this.viewCountRepository.AddAsync(viewCount);
+            await this.viewCountRepository.SaveChangesAsync();
         }
     }
 }

@@ -100,7 +100,7 @@
             var hasUserVisitedRecipe = this.recipesService.CheckIfUserVisitedRecipe(user.Id, id);
             if (!hasUserVisitedRecipe)
             {
-                this.recipesService.AddUserRecipeView(user.Id, id);
+                await this.recipesService.AddUserRecipeView(user.Id, id);
                 detailsRecipeViewModel.ViewsCount++;
             }
 

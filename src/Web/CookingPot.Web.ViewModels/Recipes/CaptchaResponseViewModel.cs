@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-
-namespace CookingPot.Web.ViewModels.Recipes
+﻿namespace CookingPot.Web.ViewModels.Recipes
 {
+    using System;
+    using System.Collections.Generic;
+
+    using Newtonsoft.Json;
+
     public class CaptchaResponseViewModel
     {
         public bool Success { get; set; }
