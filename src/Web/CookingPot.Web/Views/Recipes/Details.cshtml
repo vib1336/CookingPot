@@ -19,7 +19,16 @@
     }
     <span><i class="fas fa-comment"></i> @Model.RecipeComments.Count() |</span>
     <span><i class="fas fa-eye"></i> @Model.ViewsCount |</span>
-    <span><i class="fas fa-calendar"></i> <time datetime="@Model.CreatedOn.ToString("O")"></time> <em>(@Model.DaysCounter.Days days ago)</em> | <i class="fas fa-user"></i> @Model.ShortUsername</span>
+    <span><i class="fas fa-calendar"></i> <time datetime="@Model.CreatedOn.ToString("O")"></time> 
+    @if (Model.DaysCounter.Days == 0)
+    {
+        <em>(today)</em>
+    } 
+    else 
+    {
+        <em>(@Model.DaysCounter.Days days ago)</em>
+    }
+    | <i class="fas fa-user"></i> @Model.ShortUsername</span>
     @if (Model.ModifiedOn.HasValue)
     {
         <span>| <i class="fas fa-edit"></i> <time datetime="@Model.ModifiedOn.Value.ToString("O")"></time></span>
