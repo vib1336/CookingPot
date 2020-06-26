@@ -39,6 +39,7 @@
 .identity-button {
     background-color: #5891c9;
     border: none;
+    border-radius: 7px;
     color: white;
     padding: 8px 32px;
     text-align: center;

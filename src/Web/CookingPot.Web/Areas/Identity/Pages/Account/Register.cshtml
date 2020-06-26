@@ -21,24 +21,20 @@
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="input-container">
-                    <i class="fa fa-user icon"></i>
-                    <input asp-for="Input.Username" class="input-field" placeholder="Username" />
+                <div class="form-group">
+                    <input asp-for="Input.Username" class="form-control" placeholder="Username" />
                     <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
-                <div class="input-container">
-                    <i class="fa fa-envelope icon"></i>
-                    <input asp-for="Input.Email" class="input-field" placeholder="Email" />
+                <div class="form-group">
+                    <input asp-for="Input.Email" class="form-control" placeholder="Email" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="input-container">
-                    <i class="fa fa-key icon"></i>
-                    <input asp-for="Input.Password" class="input-field" placeholder="Password" />
+                <div class="form-group">
+                    <input asp-for="Input.Password" class="form-control" placeholder="Password" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="input-container">
-                    <i class="fa fa-key icon"></i>
-                    <input asp-for="Input.ConfirmPassword" class="input-field" placeholder="Confirm password" />
+                <div class="form-group">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm password" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
                 <button type="submit" class="identity-button">Register</button>
