@@ -57,5 +57,8 @@
         public const string FruitSalads = "Fruit salads";
 
         public const string NoResultsFound = "No results were found";
+
+        // pages to show for pagination
+        public const int PagesToShow = 3;
     }
 }

@@ -37,7 +37,7 @@
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(MeatSoups);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
-            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            int maxPage = (int)Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
             if (maxPage == 0)
             {
                 return this.View("EmptySubcategory");
@@ -54,6 +54,7 @@
                 AllMeatSoups = this.recipesService.GetRecipes<MeatSoupsViewModel>(subcategoryId, page),
                 Total = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId),
                 CurrentPage = page,
+                MaxPage = maxPage,
             };
 
             return this.View(allMeatSoups);
@@ -65,7 +66,7 @@
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(VegetarianSoups);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
-            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            int maxPage = (int)Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
             if (maxPage == 0)
             {
                 return this.View("EmptySubcategory");
@@ -82,6 +83,7 @@
                 AllVegetarianSoups = this.recipesService.GetRecipes<VegetarianSoupsViewModel>(subcategoryId, page),
                 Total = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId),
                 CurrentPage = page,
+                MaxPage = maxPage,
             };
 
             return this.View(allVegetarianSoups);

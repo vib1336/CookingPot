@@ -34,7 +34,7 @@
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(SaladsSubcategoryName);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
-            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            int maxPage = (int)Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
             if (maxPage == 0)
             {
                 return this.View("EmptySubcategory");
@@ -51,6 +51,7 @@
                 AllSalads = this.recipesService.GetRecipes<DisplaySaladSubcategoryViewModel>(subcategoryId, page),
                 Total = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId),
                 CurrentPage = page,
+                MaxPage = maxPage,
             };
             return this.View(allSaladsViewModel);
         }

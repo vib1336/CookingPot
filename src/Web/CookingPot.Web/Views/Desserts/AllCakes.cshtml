@@ -1,7 +1,9 @@
 ﻿@model CookingPot.Web.ViewModels.Desserts.AllCakesViewModel
+@using static CookingPot.Common.GlobalConstants;
 
 @{
     this.ViewData["Title"] = "All cakes";
+    var pages = new List<int>();
 }
 
 <div class="row">
@@ -18,13 +20,53 @@
     }
 </div>
 
-<div>
-    @if (!Model.PreviousDisabled)
-    {
-        <a asp-controller="Desserts" asp-action="AllCakes" asp-route-page="@Model.PreviousPage" class="float-left btn btn-success">Prev</a>
-    }
-    @if (!Model.NextDisabled && Model.AllCakes.Count() > 0)
-    {
-        <a asp-controller="Desserts" asp-action="AllCakes" asp-route-page="@Model.NextPage" class="float-right btn btn-success">Next</a>
-    }
-</div>
+<!--pagination-->
+<nav>
+    <ul class="pagination justify-content-center">
+        @if (Model.PreviousDisabled)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-controller="Desserts" asp-action="AllCakes" asp-route-page="@Model.PreviousPage" tabindex="-1">Previous</a>
+            </li>
+        }
+
+        @for (int i = Model.CurrentPage - PagesToShow; i <= Model.CurrentPage + PagesToShow; i++)
+        {
+            if (i > 0 && i <= Model.MaxPage)
+            {
+                pages.Add(i);
+            }
+        }
+        <!-- show pages -->
+        @for (int i = 0; i < pages.Count; i++)
+        {
+            var currentPage = pages[i];
+
+            var active = currentPage == Model.CurrentPage ? "active" : string.Empty;
+
+            <li class="page-item @active">
+                <a class="page-link" asp-controller="Desserts" asp-action="AllCakes" asp-route-page="@currentPage">@currentPage</a>
+            </li>
+        }
+
+        @if (Model.NextDisabled)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-controller="Desserts" asp-action="AllCakes" asp-route-page="@Model.NextPage">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
+

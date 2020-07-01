@@ -36,7 +36,7 @@
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(MeatMainCourses);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
-            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            int maxPage = (int)Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
             if (maxPage == 0)
             {
                 return this.View("EmptySubcategory");
@@ -53,6 +53,7 @@
                 AllMeatMainCourses = this.recipesService.GetRecipes<MeatMainCoursesViewModel>(subcategoryId, page),
                 Total = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId),
                 CurrentPage = page,
+                MaxPage = maxPage,
             };
 
             return this.View(allMeatMainCourses);
@@ -64,7 +65,7 @@
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(VegetarianMainCourses);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
-            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            int maxPage = (int)Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
             if (maxPage == 0)
             {
                 return this.View("EmptySubcategory");
@@ -81,6 +82,7 @@
                 AllVegetarianMainCourses = this.recipesService.GetRecipes<VegetarianMainCoursesViewModel>(subcategoryId, page),
                 Total = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId),
                 CurrentPage = page,
+                MaxPage = maxPage,
             };
 
             return this.View(allVegetarianMainCourses);

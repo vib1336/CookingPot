@@ -37,7 +37,7 @@
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(Cakes);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
-            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            int maxPage = (int)Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
             if (maxPage == 0)
             {
                 return this.View("EmptySubcategory");
@@ -54,6 +54,7 @@
                 AllCakes = this.recipesService.GetRecipes<CakesViewModel>(subcategoryId, page),
                 Total = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId),
                 CurrentPage = page,
+                MaxPage = maxPage,
             };
 
             return this.View(allCakes);
@@ -65,7 +66,7 @@
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(FruitSalads);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
-            double maxPage = Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
+            int maxPage = (int)Math.Ceiling(((double)totalRecipes) / RecipesPerPage);
             if (maxPage == 0)
             {
                 return this.View("EmptySubcategory");
@@ -82,6 +83,7 @@
                 AllFruitSalads = this.recipesService.GetRecipes<FruitSaladsViewModel>(subcategoryId, page),
                 Total = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId),
                 CurrentPage = page,
+                MaxPage = maxPage,
             };
 
             return this.View(allFruitSalads);

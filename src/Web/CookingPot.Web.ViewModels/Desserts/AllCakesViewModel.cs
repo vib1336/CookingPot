@@ -29,6 +29,8 @@
             }
         }
 
+        public int MaxPage { get; set; }
+
         public bool InvalidPage
         {
             get
