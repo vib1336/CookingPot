@@ -58,7 +58,7 @@
             await this.subcategoriesRepository.SaveChangesAsync();
         }
 
-        public T GetSubcategory<T>(string subcategory = null)
+        public T GetSubcategory<T>(string subcategory)
             => this.subcategoriesRepository.All()
             .Where(s => s.Name == subcategory).To<T>().FirstOrDefault();
 
