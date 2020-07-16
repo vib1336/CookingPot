@@ -31,6 +31,11 @@
         [Authorize]
         public IActionResult All(int page = 1)
         {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(SaladsSubcategoryName);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);

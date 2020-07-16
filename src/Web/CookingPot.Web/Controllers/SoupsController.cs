@@ -34,6 +34,11 @@
         [Authorize]
         public IActionResult AllMeatSoups(int page = 1)
         {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(MeatSoups);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
@@ -63,6 +68,11 @@
         [Authorize]
         public IActionResult AllVegetarianSoups(int page = 1)
         {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(VegetarianSoups);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);

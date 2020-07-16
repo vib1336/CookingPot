@@ -33,6 +33,11 @@
         [Authorize]
         public IActionResult AllMeatMainCourses(int page = 1)
         {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(MeatMainCourses);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
@@ -62,6 +67,11 @@
         [Authorize]
         public IActionResult AllVegetarianMainCourses(int page = 1)
         {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
             int subcategoryId = this.subcategoriesService.GetSubcategoryId(VegetarianMainCourses);
 
             int totalRecipes = this.recipesService.GetTotalRecipesFromSubcategory(subcategoryId);
