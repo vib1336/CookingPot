@@ -68,7 +68,7 @@
         <button type="button" class="btn btn-primary" id="buttonCommentForm" onclick="showCommentBox()">Comment</button>
         @if (Model.CurrentUserId == Model.UserId || Model.IsUserInRole)
         {
-            <a asp-controller="Recipes" asp-action="EditRecipe" asp-route-id="@Model.Id" class="btn btn-primary btn-lg float-right" role="button">Edit</a>
+            <a asp-controller="Recipes" asp-action="EditRecipe" asp-route-id="@Model.Id" class="btn btn-warning btn-lg float-right" role="button">Edit</a>
         }
 
     </div>
