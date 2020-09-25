@@ -14,3 +14,9 @@ ASP.NET Core course project is a web app build for posting cooking recipes. Used
 
 - [Valentin Bratoychev](https://github.com/vib1336)
 
+## Database diagram
+
+![Database diagram](/images/DB_Diagram.PNG)
+![Database diagram](/images/DB_Diagram2.PNG)
+![Database diagram](/images/DB_Diagram3.PNG)
+
