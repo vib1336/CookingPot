@@ -28,7 +28,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.votesService.AddVote(inputModel.RecipeId, user.Id, inputModel.IsUpVote);
+            var hasUserVoted = await this.votesService.AddVote(inputModel.RecipeId, user.Id, inputModel.IsUpVote);
 
             int positiveVotes = this.votesService.CountVotes(inputModel.RecipeId)[0];
             int negativeVotes = this.votesService.CountVotes(inputModel.RecipeId)[1];
@@ -37,6 +37,7 @@
             {
                 PositiveVotes = positiveVotes,
                 NegativeVotes = negativeVotes,
+                HasUserVoted = hasUserVoted,
             };
         }
     }

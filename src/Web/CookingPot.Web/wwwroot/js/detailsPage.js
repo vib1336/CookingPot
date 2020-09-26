@@ -43,6 +43,7 @@ $(document).ready(function () {
     }, 3000);
 });
 
+// Send vote ajax
 function sendVote(recipeId, isUpVote) {
     var token = $("#votesForm input[name=__RequestVerificationToken]").val();
     var json = { recipeId: recipeId, isUpVote: isUpVote };
@@ -54,11 +55,16 @@ function sendVote(recipeId, isUpVote) {
         dataType: "json",
         headers: { 'X-CSRF-TOKEN': token },
         success: function (data) {
+            if (data['hasUserVoted']) {
+                alert('You have already voted!');
+            }
+
             document.getElementById('positiveVotes').innerHTML = data.positiveVotes;
             document.getElementById('negativeVotes').innerHTML = data.negativeVotes;
         }
     });
 }
+
 // Delete comment ajax
 function deleteComment(divCommentId, commentId) {
     var token = $("#deleteCommentForm input[name=__RequestVerificationToken]").val();

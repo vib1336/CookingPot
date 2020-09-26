@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
+    [Authorize]
     public class CommentsController : ControllerBase
     {
         private readonly ICommentsService commentsService;
@@ -16,7 +17,6 @@
             => this.commentsService = commentsService;
 
         [HttpPost]
-        [Authorize]
         [Route("Comments/Comment")]
         public async Task<ActionResult<CommentReturnInfoModel>> Comment(CommentInputModel inputModel)
         {
@@ -28,7 +28,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         [Route("Comments/DeleteComment")]
         public async Task<ActionResult<DeleteCommentReturnModel>> DeleteComment(DeleteCommentInputModel inputModel)
         {

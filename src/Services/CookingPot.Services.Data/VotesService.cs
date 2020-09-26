@@ -14,7 +14,7 @@
         public VotesService(IRepository<Vote> votesRepository)
             => this.votesRepository = votesRepository;
 
-        public async Task AddVote(int recipeId, string userId, bool isUpVote)
+        public async Task<bool> AddVote(int recipeId, string userId, bool isUpVote)
         {
            Vote vote = this.votesRepository.All().FirstOrDefault(v => v.RecipeId == recipeId && v.UserId == userId);
 
@@ -28,7 +28,10 @@
                 };
                 await this.votesRepository.AddAsync(vote);
                 await this.votesRepository.SaveChangesAsync();
+                return false;
            }
+
+           return true;
         }
 
         public int[] CountVotes(int recipeId)
