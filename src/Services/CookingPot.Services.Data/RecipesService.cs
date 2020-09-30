@@ -259,7 +259,8 @@
 
         public async Task<T> GetUserLastApprovalRecipeAsync<T>(string userId)
             => await this.approvalRecipesRepository.All()
-            .Where(ar => ar.UserId == userId)
+            .Where(ar => ar.UserId == userId && !ar.IsApproved)
+            .OrderByDescending(ar => ar.CreatedOn)
             .To<T>()
             .FirstOrDefaultAsync();
 
