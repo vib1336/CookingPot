@@ -45,7 +45,7 @@
         public IEnumerable<T> GetRecipes<T>(int subcategoryId, int page)
         {
             IQueryable<Recipe> recipes = this.recipesRepository.All()
-                .Where(r => r.SubcategoryId == subcategoryId && !r.IsDeleted)
+                .Where(r => r.SubcategoryId == subcategoryId)
                 .Skip((page - 1) * RecipesPerPage)
                 .Take(RecipesPerPage);
 
@@ -57,7 +57,7 @@
 
         public int GetTotalRecipesFromSubcategory(int subcategoryId)
             => this.recipesRepository.All()
-            .Where(r => r.SubcategoryId == subcategoryId && !r.IsDeleted)
+            .Where(r => r.SubcategoryId == subcategoryId)
             .Count();
 
         public async Task<int> AddRecipeAsync(string name, string description, int timeToPrepare, string imageUrl, string neededProducts, int subcategoryId, string userId)
