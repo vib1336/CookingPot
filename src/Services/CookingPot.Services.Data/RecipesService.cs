@@ -162,7 +162,6 @@
             recipeToEdit.Name = char.ToUpper(name[0]) + name.Substring(1).ToLower().TrimEnd(' ', ',', '.', '-', '_', '!', '?');
             recipeToEdit.Description = description;
             recipeToEdit.TimeToPrepare = timeToPrepare;
-            recipeToEdit.ModifiedOn = DateTime.UtcNow;
 
             await this.recipesRepository.SaveChangesAsync();
         }
@@ -174,7 +173,7 @@
         {
             Recipe recipe = this.recipesRepository.All().Where(r => r.Id == id).FirstOrDefault();
             recipe.IsDeleted = true;
-            recipe.DeletedOn = DateTime.UtcNow;
+
             this.recipesRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
@@ -251,7 +250,7 @@
                 .Where(ar => ar.Id == id).FirstOrDefault();
 
             approvalRecipe.IsDeleted = true;
-            approvalRecipe.DeletedOn = DateTime.UtcNow;
+
             await this.approvalRecipesRepository.SaveChangesAsync();
 
             return true;

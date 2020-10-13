@@ -109,25 +109,30 @@
              => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
         private void ApplyAuditInfoRules()
-        {
-            var changedEntries = this.ChangeTracker
-                .Entries()
-                .Where(e =>
-                    e.Entity is IAuditInfo &&
-                    (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-            foreach (var entry in changedEntries)
+            => this.ChangeTracker
+            .Entries()
+            .ToList()
+            .ForEach(entry =>
             {
-                var entity = (IAuditInfo)entry.Entity;
-                if (entry.State == EntityState.Added && entity.CreatedOn == default)
+                if (entry.Entity is IAuditInfo entity)
                 {
-                    entity.CreatedOn = DateTime.UtcNow;
+                    if (entry.State == EntityState.Added && entity.CreatedOn == default)
+                    {
+                        entity.CreatedOn = DateTime.UtcNow;
+                    }
+                    else
+                    {
+                        entity.ModifiedOn = DateTime.UtcNow;
+                    }
                 }
-                else
+
+                if (entry.Entity is IDeletableEntity deletableEntity)
                 {
-                    entity.ModifiedOn = DateTime.UtcNow;
+                    if (deletableEntity.IsDeleted)
+                    {
+                        deletableEntity.DeletedOn = DateTime.UtcNow;
+                    }
                 }
-            }
-        }
+            });
     }
 }

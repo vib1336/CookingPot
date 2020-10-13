@@ -46,7 +46,7 @@
             var comment = this.commentsRepository.All().FirstOrDefault(c => c.Id == id);
 
             comment.IsDeleted = true;
-            comment.DeletedOn = DateTime.UtcNow;
+
             await this.commentsRepository.SaveChangesAsync();
 
             return comment.IsDeleted;
