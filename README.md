@@ -9,6 +9,7 @@ ASP.NET Core course project is a web app build for posting cooking recipes. Used
 * Ajax
 * reCaptcha v3
 * Cloudinary
+* Font Awesome
 
 ## Authors
 
